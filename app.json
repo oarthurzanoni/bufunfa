@@ -1,0 +1,12 @@
+{
+  "name": "Bufunfa",
+  "displayName": "Bufunfa",
+  "expo": {
+    "name": "Bufunfa",
+    "slug": "Bufunfa",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
