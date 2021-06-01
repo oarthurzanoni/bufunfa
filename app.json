@@ -5,6 +5,7 @@
     "name": "Bufunfa",
     "slug": "Bufunfa",
     "version": "1.0.0",
+    "orientation": "portrait",
     "assetBundlePatterns": [
       "**/*"
     ]

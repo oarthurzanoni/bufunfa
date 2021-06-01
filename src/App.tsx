@@ -10,8 +10,14 @@ import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";
 
 import HomeScreen from "./screens/Home";
+import ProfileScreen from "./screens/Profile";
+import AboutScreen from "./screens/About";
 
-const Stack = createStackNavigator();
+import { ProfileProvider } from "./providers/Profile";
+
+import { StackParamList } from "./types/Navigator";
+
+const Stack = createStackNavigator<StackParamList>();
 
 export default function App(): JSX.Element {
   const [ fontsLoaded ] = useFonts({
@@ -28,13 +34,17 @@ export default function App(): JSX.Element {
   } else {
     return(
       <NavigationContainer>
-        <StatusBar
-            barStyle="light-content"
-            backgroundColor="black"
-        />
-        <Stack.Navigator>
-          <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
-        </Stack.Navigator>
+        <ProfileProvider>
+          <StatusBar
+              barStyle="dark-content"
+              backgroundColor="#ffffff"
+          />
+          <Stack.Navigator>
+            <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="Profile" component={ProfileScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="About" component={AboutScreen} />
+          </Stack.Navigator>
+        </ProfileProvider>
       </NavigationContainer>
     );
   }
