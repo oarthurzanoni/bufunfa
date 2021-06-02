@@ -8,11 +8,13 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.15.5",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.5",
     "expo": "~41.0.1",
     "expo-app-loading": "^1.0.3",
+    "expo-clipboard": "~1.0.2",
     "expo-font": "^9.1.0",
     "expo-splash-screen": "~0.10.2",
     "expo-updates": "~0.5.4",
@@ -29,6 +31,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@types/": "react-native-async-storage/async-storage",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
     "babel-preset-expo": "~8.3.0",

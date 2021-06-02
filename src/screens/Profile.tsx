@@ -77,7 +77,7 @@ export default function ProfileScreen({ navigation }: Props): JSX.Element {
       </TouchableWithoutFeedback>
       <TouchableOpacity
         style={{ marginTop: 60 }}
-        onPress={() => navigation.navigate("About")}
+        onPress={() => navigation.navigate("Donate")}
       >
         <View style={[ styles.card, styles.button ]}>
           <Text style={[ styles.text ]}>Me ajude a pagar a internet</Text>

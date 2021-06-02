@@ -1895,6 +1895,13 @@
     "@babel/runtime" "^7.7.2"
     regenerator-runtime "^0.13.3"
 
+"@react-native-async-storage/async-storage@^1.15.5":
+  version "1.15.5"
+  resolved "https://registry.yarnpkg.com/@react-native-async-storage/async-storage/-/async-storage-1.15.5.tgz#0d221a5ef1cd7a6494a42fcaad43136d68379afb"
+  integrity sha512-4AYehLH39B9a8UXCMf3ieOK+G61wGMP72ikx6/XSMA0DUnvx0PgaeaT2Wyt06kTrDTy8edewKnbrbeqwaM50TQ==
+  dependencies:
+    deep-assign "^3.0.0"
+
 "@react-native-community/cli-debugger-ui@^4.13.1":
   version "4.13.1"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-4.13.1.tgz#07de6d4dab80ec49231de1f1fbf658b4ad39b32c"
@@ -2061,6 +2068,12 @@
   integrity sha512-xkNcLAn/wZaX14RPlwizcKicDk9G3F8m2nU3L7Ukm5zBgTwiT0wsoFAHx9Jq56fJA1z/7uKGtCRu16sOUCLIHQ==
   dependencies:
     type-detect "4.0.8"
+
+"@types/@react-native-async-storage/async-storage":
+  version "1.13.0"
+  resolved "https://codeload.github.com/react-native-async-storage/async-storage/tar.gz/32f697a67173ca0daa051c292561d74567a0147a"
+  dependencies:
+    deep-assign "^3.0.0"
 
 "@types/babel__core@^7.1.7":
   version "7.1.14"
@@ -3799,6 +3812,11 @@ expo-asset@~8.3.1:
     md5-file "^3.2.3"
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
+
+expo-clipboard@~1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/expo-clipboard/-/expo-clipboard-1.0.2.tgz#7b759aef61616ce700c4077f0ab1589c974887f8"
+  integrity sha512-0uarcOHQKPW658eMhW2KBnTxtiS7yFQZ95j+Dz71Kn50X9V7HGXsexEETQ0lL05ArDAgpVRTPHz0YKkaq8Kn/Q==
 
 expo-constants@~10.1.3:
   version "10.1.3"

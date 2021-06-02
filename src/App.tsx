@@ -12,6 +12,7 @@ import { useFonts } from "expo-font";
 import HomeScreen from "./screens/Home";
 import ProfileScreen from "./screens/Profile";
 import AboutScreen from "./screens/About";
+import DonateScreen from "./screens/Donate";
 
 import { ProfileProvider } from "./providers/Profile";
 
@@ -43,6 +44,7 @@ export default function App(): JSX.Element {
             <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
             <Stack.Screen options={{ headerShown: false }} name="Profile" component={ProfileScreen} />
             <Stack.Screen options={{ headerShown: false }} name="About" component={AboutScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="Donate" component={DonateScreen} />
           </Stack.Navigator>
         </ProfileProvider>
       </NavigationContainer>
