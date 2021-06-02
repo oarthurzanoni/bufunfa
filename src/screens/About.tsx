@@ -26,7 +26,7 @@ export default function AboutScreen({ navigation }: Props): JSX.Element {
             <View style={styles.image}>
               <Icons8Svg />
             </View>
-            <Text style={styles.text}>Icons by Icons8</Text>
+            <Text style={styles.text}>Icons by Icons8 ( icons8.com )</Text>
           </View>
         </View>
       </View>

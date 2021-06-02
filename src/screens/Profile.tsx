@@ -6,7 +6,8 @@ import {
   View,
   Text,
   TextInput,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  TouchableOpacity
 } from "react-native";
 
 import { ProfileContext } from "../providers/Profile";
@@ -20,7 +21,7 @@ import AboutSvg from "../assets/images/svgs/AboutSvg";
 import { StackScreenProps } from "@react-navigation/stack";
 
 import { StackParamList } from "../types/Navigator";
-import MercadoPagoSvg from "../assets/images/svgs/MercadoPagoSvg";
+import CoffeeSvg from "../assets/images/svgs/InternetExplorerSvg";
 
 type Props = StackScreenProps<StackParamList, "Profile">;
 
@@ -29,6 +30,7 @@ export default function ProfileScreen({ navigation }: Props): JSX.Element {
 
   return(
     <ScrollView style={styles.container}>
+      <View style={styles.paddingView} />
       <View style={styles.username}>
         <View style={styles.image}>
           <ProfileSvg />
@@ -66,17 +68,6 @@ export default function ProfileScreen({ navigation }: Props): JSX.Element {
       <TouchableWithoutFeedback
         onPress={() => navigation.navigate("About")}
       >
-        <View style={[ styles.card, { marginBottom: 30 } ]}>
-          <View style={styles.image}>
-            <MercadoPagoSvg />
-          </View>
-          <Text style={[styles.text, { color: "#28316B" }]}>Agora </Text>
-          <Text style={[styles.text, { color: "#51B4E9" }]}>vai!</Text>
-        </View>
-      </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback
-        onPress={() => navigation.navigate("About")}
-      >
         <View style={styles.card}>
           <View style={styles.image}>
             <AboutSvg />
@@ -84,13 +75,24 @@ export default function ProfileScreen({ navigation }: Props): JSX.Element {
           <Text style={styles.text}>Sobre</Text>
         </View>
       </TouchableWithoutFeedback>
+      <TouchableOpacity
+        style={{ marginTop: 60 }}
+        onPress={() => navigation.navigate("About")}
+      >
+        <View style={[ styles.card, styles.button ]}>
+          <Text style={[ styles.text ]}>Me ajude a pagar a internet</Text>
+          <View style={[ styles.image, { marginLeft: 20, marginRight: 0 } ]}>
+            <CoffeeSvg />
+          </View>
+        </View>
+      </TouchableOpacity>
+      <View style={styles.paddingView} />
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 45,
     paddingHorizontal: 20,
 
     backgroundColor: "#ffffff",
@@ -151,4 +153,21 @@ const styles = StyleSheet.create({
 
     color: "#050505",
   },
+
+  button: {
+    width: "100%",
+
+    backgroundColor: "#D1FBEA",
+
+    height: 60,
+
+    borderRadius: 4,
+
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  paddingView: {
+    height: 45
+  }
 });
