@@ -10,8 +10,6 @@ Estou estudando React Native e TypeScript e estou tentando desenvolver este app 
 
 ![Preview](https://github.com/Mitacho/bufunfa/blob/main/Preview%20Mockup.svg)
 
-# Design
-
 Eu fiz esse design horrível no Figma mesmo não tendo conhecimento algum de design para ter uma noção de como eu quero que o app fique.
 
 # Créditos
