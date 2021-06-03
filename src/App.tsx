@@ -15,6 +15,7 @@ import AboutScreen from "./screens/About";
 import DonateScreen from "./screens/Donate";
 
 import { ProfileProvider } from "./providers/Profile";
+import { TransactionsProvider } from "./providers/Transactions";
 
 import { StackParamList } from "./types/Navigator";
 
@@ -35,18 +36,20 @@ export default function App(): JSX.Element {
   } else {
     return(
       <NavigationContainer>
-        <ProfileProvider>
-          <StatusBar
-              barStyle="dark-content"
-              backgroundColor="#ffffff"
-          />
-          <Stack.Navigator>
-            <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
-            <Stack.Screen options={{ headerShown: false }} name="Profile" component={ProfileScreen} />
-            <Stack.Screen options={{ headerShown: false }} name="About" component={AboutScreen} />
-            <Stack.Screen options={{ headerShown: false }} name="Donate" component={DonateScreen} />
-          </Stack.Navigator>
-        </ProfileProvider>
+        <TransactionsProvider>
+          <ProfileProvider>
+            <StatusBar
+                barStyle="dark-content"
+                backgroundColor="#ffffff"
+            />
+            <Stack.Navigator>
+              <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
+              <Stack.Screen options={{ headerShown: false }} name="Profile" component={ProfileScreen} />
+              <Stack.Screen options={{ headerShown: false }} name="About" component={AboutScreen} />
+              <Stack.Screen options={{ headerShown: false }} name="Donate" component={DonateScreen} />
+            </Stack.Navigator>
+          </ProfileProvider>
+        </TransactionsProvider>
       </NavigationContainer>
     );
   }

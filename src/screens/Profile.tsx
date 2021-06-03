@@ -11,11 +11,9 @@ import {
 } from "react-native";
 
 import { ProfileContext } from "../providers/Profile";
+import { TransactionsContext } from "../providers/Transactions";
 
 import ProfileSvg from "../assets/images/svgs/ProfileSvg";
-import OnlineStoreSvg from "../assets/images/svgs/OnlineStoreSvg";
-import CarSvg from "../assets/images/svgs/CarSvg";
-import TShirtSvg from "../assets/images/svgs/TShirtSvg";
 import AboutSvg from "../assets/images/svgs/AboutSvg";
 
 import { StackScreenProps } from "@react-navigation/stack";
@@ -27,6 +25,7 @@ type Props = StackScreenProps<StackParamList, "Profile">;
 
 export default function ProfileScreen({ navigation }: Props): JSX.Element {
   const { handleUsername, username } = React.useContext(ProfileContext);
+  const { BiggestSpendings } = React.useContext(TransactionsContext);
 
   return(
     <ScrollView style={styles.container}>
@@ -45,24 +44,7 @@ export default function ProfileScreen({ navigation }: Props): JSX.Element {
       <View style={styles.spendingContainer}>
         <Text style={styles.spendingText}>Seus maiores gastos</Text>
         <View style={styles.biggestSpendingsContainer}>
-          <View style={styles.card}>
-            <View style={styles.image}>
-              <OnlineStoreSvg />
-            </View>
-            <Text style={styles.text}>Mercados</Text>
-          </View>
-          <View style={styles.card}>
-            <View style={styles.image}>
-              <CarSvg />
-            </View>
-            <Text style={styles.text}>Veículos</Text>
-          </View>
-          <View style={styles.card}>
-            <View style={styles.image}>
-              <TShirtSvg />
-            </View>
-            <Text style={styles.text}>Roupas</Text>
-          </View>
+          <BiggestSpendings />
         </View>
       </View>
       <TouchableWithoutFeedback
