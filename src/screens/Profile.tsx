@@ -13,13 +13,15 @@ import {
 import { ProfileContext } from "../providers/Profile";
 import { TransactionsContext } from "../providers/Transactions";
 
-import ProfileSvg from "../assets/images/svgs/ProfileSvg";
-import AboutSvg from "../assets/images/svgs/AboutSvg";
-
 import { StackScreenProps } from "@react-navigation/stack";
 
 import { StackParamList } from "../types/Navigator";
-import CoffeeSvg from "../assets/images/svgs/InternetExplorerSvg";
+
+import Icon from "../components/Icon";
+
+import Profile from "../assets/images/svgs/Profile";
+import About from "../assets/images/svgs/About";
+import InternetExplorer from "../assets/images/svgs/InternetExplorer";
 
 type Props = StackScreenProps<StackParamList, "Profile">;
 
@@ -32,7 +34,12 @@ export default function ProfileScreen({ navigation }: Props): JSX.Element {
       <View style={styles.paddingView} />
       <View style={styles.username}>
         <View style={styles.image}>
-          <ProfileSvg />
+          <Icon
+            svg={Profile}
+            fill="#050505"
+            height="37px"
+            width="37px"
+          />
         </View>
         <TextInput
           style={styles.name}
@@ -52,7 +59,12 @@ export default function ProfileScreen({ navigation }: Props): JSX.Element {
       >
         <View style={styles.card}>
           <View style={styles.image}>
-            <AboutSvg />
+            <Icon
+              svg={About}
+              fill="#000000"
+              height="37px"
+              width="37px"
+            />
           </View>
           <Text style={styles.text}>Sobre</Text>
         </View>
@@ -64,7 +76,12 @@ export default function ProfileScreen({ navigation }: Props): JSX.Element {
         <View style={[ styles.card, styles.button ]}>
           <Text style={[ styles.text ]}>Me ajude a pagar a internet</Text>
           <View style={[ styles.image, { marginLeft: 20, marginRight: 0 } ]}>
-            <CoffeeSvg />
+            <Icon
+              svg={InternetExplorer}
+              fill="#050505"
+              height="37px"
+              width="37px"
+            />
           </View>
         </View>
       </TouchableOpacity>

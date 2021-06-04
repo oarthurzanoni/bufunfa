@@ -11,8 +11,10 @@ import { StackScreenProps } from "@react-navigation/stack";
 
 import { StackParamList } from "../types/Navigator";
 
-import Icons8Svg from "../assets/images/svgs/Icons8Svg";
-import MailSvg from "../assets/images/svgs/MailSvg";
+import Icon from "../components/Icon";
+
+import Icons8 from "../assets/images/svgs/Icons8";
+import Mail from "../assets/images/svgs/Mail";
 
 type Props = StackScreenProps<StackParamList, "About">;
 
@@ -24,7 +26,12 @@ export default function AboutScreen({ navigation }: Props): JSX.Element {
         <View style={styles.items}>
           <View style={styles.card}>
             <View style={styles.image}>
-              <Icons8Svg />
+              <Icon
+                svg={Icons8}
+                fill="#050505"
+                height="37px"
+                width="37px"
+              />
             </View>
             <Text style={styles.text}>Icons by Icons8 ( icons8.com )</Text>
           </View>
@@ -35,7 +42,12 @@ export default function AboutScreen({ navigation }: Props): JSX.Element {
         <View style={styles.items}>
           <View style={styles.card}>
             <View style={styles.image}>
-              <MailSvg />
+              <Icon
+                svg={Mail}
+                fill="#050505"
+                height="37px"
+                width="37px"
+              />
             </View>
             <Text style={styles.text}>arthurflavio@protonmail.com</Text>
           </View>

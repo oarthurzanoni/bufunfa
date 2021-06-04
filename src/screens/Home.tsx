@@ -13,6 +13,8 @@ import { ProfileContext } from "../providers/Profile";
 
 import { StackParamList } from "../types/Navigator";
 
+import Status from "../components/Status";
+
 type Props = StackScreenProps<StackParamList, "Home">;
 
 export default function HomeScreen({ navigation }: Props): JSX.Element {
@@ -27,6 +29,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
           <Text numberOfLines={1} style={styles.greetingsText}>Olá, { username ? username : "qual é o seu nome ?" }</Text>
         </TouchableWithoutFeedback>
       </View>
+      <Status />
     </View>
   );
 }

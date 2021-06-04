@@ -6,8 +6,10 @@ import {
   StyleSheet
 } from "react-native";
 
-import OnlineStoreSvg from "../assets/images/svgs/OnlineStoreSvg";
-import CarSvg from "../assets/images/svgs/CarSvg";
+import Icon from "../components/Icon";
+
+import OnlineStore from "../assets/images/svgs/OnlineStore";
+import Car from "../assets/images/svgs/Car";
 
 interface ITransaction {
   id: number;
@@ -42,18 +44,18 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
       amount: 100000,
       category: {
         description: "Mercados",
-        icon: <OnlineStoreSvg />
+        icon: <Icon svg={OnlineStore} fill="#050505" height="37px" width="37px" />
       },
     },
     {
-      id: 5,
+      id: 2,
       date: new Date(Date.now()),
       title: "Carro",
       description: "Financiamento",
       amount: 46900,
       category: {
         description: "Veículos",
-        icon: <CarSvg />
+        icon: <Icon svg={Car} fill="#050505" height="37px" width="37px" />
       },
     },
   ]);
