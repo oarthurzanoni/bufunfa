@@ -21,7 +21,7 @@ import Icon from "../components/Icon";
 
 import Profile from "../assets/images/svgs/Profile";
 import About from "../assets/images/svgs/About";
-import InternetExplorer from "../assets/images/svgs/InternetExplorer";
+import Donation from "../assets/images/svgs/Donation";
 
 type Props = StackScreenProps<StackParamList, "Profile">;
 
@@ -74,10 +74,10 @@ export default function ProfileScreen({ navigation }: Props): JSX.Element {
         onPress={() => navigation.navigate("Donate")}
       >
         <View style={[ styles.card, styles.button ]}>
-          <Text style={[ styles.text ]}>Me ajude a pagar a internet</Text>
+          <Text style={[ styles.text ]}>Gratificar</Text>
           <View style={[ styles.image, { marginLeft: 20, marginRight: 0 } ]}>
             <Icon
-              svg={InternetExplorer}
+              svg={Donation}
               fill="#050505"
               height="37px"
               width="37px"
