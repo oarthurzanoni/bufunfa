@@ -7,6 +7,8 @@ import {
   Text,
 } from "react-native";
 
+import * as Linking from "expo-linking";
+
 import { StackScreenProps } from "@react-navigation/stack";
 
 import { StackParamList } from "../types/Navigator";
@@ -33,7 +35,10 @@ export default function AboutScreen({ navigation }: Props): JSX.Element {
                 width="37px"
               />
             </View>
-            <Text style={styles.text}>Icons by Icons8 ( icons8.com )</Text>
+            <Text
+              style={styles.text}
+              onPress={() => Linking.openURL("https://icons8.com")}
+            >Icons by Icons8</Text>
           </View>
         </View>
       </View>
@@ -49,7 +54,7 @@ export default function AboutScreen({ navigation }: Props): JSX.Element {
                 width="37px"
               />
             </View>
-            <Text style={styles.text}>arthurflavio@protonmail.com</Text>
+            <Text style={styles.text}>arthurf@tuta.io</Text>
           </View>
         </View>
       </View>

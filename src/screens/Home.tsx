@@ -32,20 +32,26 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
         </TouchableWithoutFeedback>
       </View>
       <View style={styles.statusContainer}>
-        <View style={styles.walletCard}>
-          <View style={styles.description}>
-            <Text style={[ styles.text, styles.textDescription ]}>Saldo na sua carteira</Text>
-            <Icon
-              svg={Wallet}
-              fill="#171717"
-              height="40px"
-              width="40px"
-            />
+        <TouchableWithoutFeedback
+          onPress={() => navigation.navigate("Wallet")}
+        >
+          <View
+            style={styles.walletCard}
+          >
+            <View style={styles.description}>
+              <Text style={[ styles.text, styles.textDescription ]}>Saldo na sua carteira</Text>
+              <Icon
+                svg={Wallet}
+                fill="#171717"
+                height="40px"
+                width="40px"
+              />
+            </View>
+            <View>
+              <Text numberOfLines={1} style={[ styles.text, styles.textAmount ]}>R$ 1.441,10</Text>
+            </View>
           </View>
-          <View>
-            <Text numberOfLines={1} style={[ styles.text, styles.textAmount ]}>R$ 1.441,10</Text>
-          </View>
-        </View>
+        </TouchableWithoutFeedback>
       </View>
     </View>
   );

@@ -3,4 +3,5 @@ export type StackParamList = {
   Profile: undefined;
   About: undefined;
   Donate: undefined;
+  Wallet: undefined;
 }
