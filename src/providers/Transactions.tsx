@@ -6,11 +6,6 @@ import {
   StyleSheet
 } from "react-native";
 
-import Icon from "../components/Icon";
-
-import OnlineStore from "../assets/images/svgs/OnlineStore";
-import Car from "../assets/images/svgs/Car";
-
 interface ITransaction {
   id: number;
   date: Date;
@@ -35,30 +30,7 @@ interface TransactionsProviderProps {
 export const TransactionsContext = React.createContext({} as TransactionsContextData);
 
 export function TransactionsProvider({ children }: TransactionsProviderProps): JSX.Element {
-  const [ expenses, setExpenses ] = React.useState<ITransaction[]>([
-    {
-      id: 0,
-      date: new Date(Date.now()),
-      title: "Mercados",
-      description: "",
-      amount: 100000,
-      category: {
-        description: "Mercados",
-        icon: <Icon svg={OnlineStore} fill="#050505" height="37px" width="37px" />
-      },
-    },
-    {
-      id: 2,
-      date: new Date(Date.now()),
-      title: "Carro",
-      description: "Financiamento",
-      amount: 46900,
-      category: {
-        description: "Veículos",
-        icon: <Icon svg={Car} fill="#050505" height="37px" width="37px" />
-      },
-    },
-  ]);
+  const [ expenses, setExpenses ] = React.useState<ITransaction[]>([]);
 
   function BiggestSpendings(): JSX.Element {
     expenses.sort((a, b) => b.amount - a.amount);
@@ -77,16 +49,22 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
       }
     }
 
-    return <>{
-      categories.map((category, index) => (
-        <View key={index} style={styles.card}>
-          <View style={styles.image}>
-            {category.icon}
+    return (
+      <>{
+        categories.length > 0 
+        ? categories.map((category, index) => (
+          <View key={index} style={styles.card}>
+            <View style={styles.image}>
+              {category.icon}
+            </View>
+            <Text style={styles.text}>{category.description}</Text>
           </View>
-          <Text style={styles.text}>{category.description}</Text>
+        ))
+        : <View style={styles.noExpensesContainer}>
+          <Text style={[ styles.text, { fontSize: 14 } ]}>Aqui serão exibidos os seus 3 maiores gastos.</Text>
         </View>
-      ))
-    }</>;
+      }</>
+    );
   }
 
   return(
@@ -125,4 +103,10 @@ const styles = StyleSheet.create({
 
     color: "#050505",
   },
+
+  noExpensesContainer: {
+    justifyContent: "center",
+
+    height: 100
+  }
 });
