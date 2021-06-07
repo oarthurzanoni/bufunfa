@@ -16,7 +16,13 @@ import Wallet from "../assets/images/svgs/Wallet";
 import Bloom from "../assets/images/svgs/Bloom";
 import VerifiedScroll from "../assets/images/svgs/VerifiedScroll";
 
+import { TransactionsContext } from "../providers/Transactions";
+
+import formatCurrency from "../utils/formatCurrency";
+
 export default function WalletScreen(): JSX.Element {
+  const { walletAmount } = React.useContext(TransactionsContext);
+
   const [ modalSaveWalletVisible, setModalSaveWalletVisible ] = React.useState<boolean>(false);
   const [ modalClearAllVisible, setModalClearAllVisible ] = React.useState<boolean>(false);
 
@@ -44,7 +50,7 @@ export default function WalletScreen(): JSX.Element {
                   styles.text,
                   styles.textAmout
                 ]}
-              >R$ 1.441,10</Text>
+              >{formatCurrency(walletAmount)}</Text>
             </View>
           </View>
         </View>

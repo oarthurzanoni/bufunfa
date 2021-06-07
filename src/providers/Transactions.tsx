@@ -20,6 +20,8 @@ interface ITransaction {
 
 interface TransactionsContextData {
   expenses: ITransaction[];
+  walletAmount: number;
+  walletSavings: number;
   BiggestSpendings: () => JSX.Element;
 }
 
@@ -30,6 +32,8 @@ interface TransactionsProviderProps {
 export const TransactionsContext = React.createContext({} as TransactionsContextData);
 
 export function TransactionsProvider({ children }: TransactionsProviderProps): JSX.Element {
+  const [ walletSavings, updateWalletSavings ] = React.useState<number>(0);
+  const [ walletAmount, updateWalletAmount ] = React.useState<number>(144110);
   const [ expenses, setExpenses ] = React.useState<ITransaction[]>([]);
 
   function BiggestSpendings(): JSX.Element {
@@ -71,6 +75,8 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     <TransactionsContext.Provider
       value={{
         expenses,
+        walletAmount,
+        walletSavings,
         BiggestSpendings
       }}
     >

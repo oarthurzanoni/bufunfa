@@ -17,9 +17,15 @@ import Icon from "../components/Icon";
 
 import Wallet from "../assets/images/svgs/Wallet";
 
+import formatCurrency from "../utils/formatCurrency";
+
+import { TransactionsContext } from "../providers/Transactions";
+
 type Props = StackScreenProps<StackParamList, "Home">;
 
 export default function HomeScreen({ navigation }: Props): JSX.Element {
+  const { walletAmount } = React.useContext(TransactionsContext);
+
   const { username } = React.useContext(ProfileContext);
 
   return(
@@ -48,7 +54,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
               />
             </View>
             <View>
-              <Text numberOfLines={1} style={[ styles.text, styles.textAmount ]}>R$ 1.441,10</Text>
+              <Text numberOfLines={1} style={[ styles.text, styles.textAmount ]}>{formatCurrency(walletAmount)}</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
