@@ -16,6 +16,7 @@ import { StackParamList } from "../types/Navigator";
 import Icon from "../components/Icon";
 
 import Wallet from "../assets/images/svgs/Wallet";
+import MoneyBox from "../assets/images/svgs/MoneyBox";
 
 import formatCurrency from "../utils/formatCurrency";
 
@@ -42,7 +43,12 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
           onPress={() => navigation.navigate("Wallet")}
         >
           <View
-            style={styles.walletCard}
+            style={[
+              styles.walletCard,
+              {
+                backgroundColor: "#D1FBEA"
+              }
+            ]}
           >
             <View style={styles.description}>
               <Text style={[ styles.text, styles.textDescription ]}>Saldo na sua carteira</Text>
@@ -55,6 +61,44 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
             </View>
             <View>
               <Text numberOfLines={1} style={[ styles.text, styles.textAmount ]}>{formatCurrency(walletAmount)}</Text>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
+          onPress={() => navigation.navigate("Income")}
+        >
+          <View
+            style={[
+              styles.card,
+              {
+                backgroundColor: "#FCEDD2"
+              }
+            ]}
+          >
+            <View style={[ { marginRight: 20 } ]}>
+              <Icon
+                svg={MoneyBox}
+                fill="#171717"
+                height="37px"
+                width="37px"
+              />
+            </View>
+            <View style={[
+              {
+                flex: 1,
+
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }
+            ]}>
+              <Text style={[ styles.text, styles.textDescription ]}>Entradas</Text>
+              <Text numberOfLines={1} style={[
+                styles.text,
+                styles.textAmount,
+                {
+                  fontSize: 18
+                }
+              ]}>{formatCurrency(0)}</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -99,8 +143,20 @@ const styles = StyleSheet.create({
     padding: 20,
 
     borderRadius: 8,
-    
-    backgroundColor: "#D1FBEA"
+
+    marginBottom: 14,
+  },
+
+  card: {
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+
+    flexDirection: "row",
+    alignItems: "center",
+
+    borderRadius: 8,
+
+    marginBottom: 14,
   },
 
   description: {
@@ -126,7 +182,7 @@ const styles = StyleSheet.create({
   },
 
   textDescription: {
-    fontSize: 14,
+    fontSize: 12,
 
     color: "#161618"
   }
