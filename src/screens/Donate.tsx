@@ -59,7 +59,7 @@ export default function DonateScreen(): JSX.Element {
         }}
       >
         <View style={[ styles.button, copied ? { backgroundColor: "#CFF4CF" } : { backgroundColor: "#E2D5FE" } ]}>
-          <Text style={[ styles.text ]}>{copied ? "Chave Pix copiada !" : "Copiar chave Pix" }</Text>
+          <Text style={[ styles.text, { color: "#171717"} ]}>{copied ? "Chave Pix copiada !" : "Copiar chave Pix" }</Text>
         </View>
       </TouchableOpacity>
       <View style={styles.paddingView} />
