@@ -6,12 +6,12 @@ Aplicativo de controle financeiro que estou desenvolvendo por conta própria.
 
 Estou estudando React Native e TypeScript e estou tentando desenvolver este app usando essas tecnologias.
 
-### Pretenção do design:
+## UI do aplicativo:
 
 ![Preview](https://github.com/Mitacho/bufunfa/blob/main/Mockup.svg)
 
-Eu fiz esse design horrível no Figma mesmo não tendo conhecimento algum de design para ter uma noção de como eu quero que o app fique.
+Você pode baixar esse molde de iPhone SE para o Figma [clicando aqui](https://www.figma.com/community/file/984091989343705161).
 
-# Créditos
+## Créditos
 
 Icons by [Icons8](https://icons8.com.br/)
