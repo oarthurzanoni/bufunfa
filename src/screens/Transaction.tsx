@@ -55,6 +55,7 @@ export default function TransactionScreen({ route }: Props): JSX.Element {
         options={TransactionOptions}
         defaultOption={defaultTransaction}
         onChangeSelect={(option: IOption) => updateTransaction(option.description)}
+        sortByAlphabeticalOrder={false}
       />
       <View style={styles.card}>
         <View style={styles.image}>
@@ -140,6 +141,7 @@ export default function TransactionScreen({ route }: Props): JSX.Element {
         options={CategoryOptions}
         defaultOption={"Outros"}
         onChangeSelect={(option: IOption) => updateCategory(option.description)}
+        sortByAlphabeticalOrder={true}
       />
       <View style={styles.paddingView} />
     </ScrollView>

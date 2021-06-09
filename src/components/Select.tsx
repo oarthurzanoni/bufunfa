@@ -20,11 +20,18 @@ interface Props {
   options: IOption[];
   defaultOption: string | number;
   onChangeSelect: (option: IOption) => void;
+  sortByAlphabeticalOrder: boolean;
 }
 
-export default function Select({ options, defaultOption, onChangeSelect }: Props): JSX.Element {
+export default function Select({ options, defaultOption, onChangeSelect, sortByAlphabeticalOrder }: Props): JSX.Element {
   const [ modalVisible, setModalVisible ] = React.useState<boolean>(false);
   const [ selectedOption, setSelectedOption ] = React.useState<IOption>(setDefaultOption(defaultOption));
+
+  sortByAlphabeticalOrder && options.sort((a, b) => {
+    if(a.description < b.description) { return -1; }
+    if(a.description > b.description) { return 1; }
+    return 0;
+  });
 
   function setDefaultOption(defaultOption: Props["defaultOption"]): IOption {
     if(typeof(defaultOption) === "string") {
@@ -89,11 +96,13 @@ export default function Select({ options, defaultOption, onChangeSelect }: Props
         onRequestClose={() => setModalVisible(false)}
       >
         <ScrollView
-          style={[ styles.container, { paddingVertical: 25 } ]}
+          style={[ styles.container, { paddingVertical: 0 } ]}
         >
+          <View style={styles.paddingView} />
           {
             options.map((option, index) => <Option key={index} { ...option } />)
           }
+          <View style={styles.paddingView} />
         </ScrollView>
       </Modal>
     </>
@@ -137,5 +146,9 @@ const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
     justifyContent: "center",
+  },
+
+  paddingView: {
+    height: 25,
   },
 });
