@@ -25,7 +25,7 @@ const CategoryOptions: IOption[] = [
   },
   {
     icon: StreetFood,
-    description: "Lanches"
+    description: "Lanche"
   },
   {
     icon: PottedPlant,
@@ -33,7 +33,7 @@ const CategoryOptions: IOption[] = [
   },
   {
     icon: TakeAwayFood,
-    description: "Comissão"
+    description: "Renda Extra"
   },
   {
     icon: OnlineStore,
