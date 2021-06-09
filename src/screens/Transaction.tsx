@@ -3,20 +3,33 @@ import React from "react";
 import {
   StyleSheet,
   View,
-  SafeAreaView,
+  ScrollView,
   Text,
   TextInput
 } from "react-native";
 
 import Icon from "../components/Icon";
 
-import MoneyBox from "../assets/images/svgs/MoneyBox";
 import MoneyBag from "../assets/images/svgs/MoneyBag";
 import TagWindow from "../assets/images/svgs/TagWindow";
 import Pencil from "../assets/images/svgs/Pencil";
 import Calendar from "../assets/images/svgs/Calendar";
 
-export default function TransactionScreen(): JSX.Element {
+import Select, { IOption } from "../components/Select";
+
+import TransactionOptions from "../settings/TransactionOptions";
+
+import { StackScreenProps } from "@react-navigation/stack";
+import { StackParamList } from "../types/Navigator";
+import CategoryOptions from "../settings/CategoryOptions";
+
+type Props = StackScreenProps<StackParamList, "Transaction">;
+
+export default function TransactionScreen({ route }: Props): JSX.Element {
+  const { defaultTransaction } = route.params;
+
+  const [ transaction, updateTransaction ] = React.useState<string>(defaultTransaction);
+  const [ category, updateCategory ] = React.useState<string>("Outros");
   const [ amount, updateAmount ] = React.useState<string>("");
   const [ title, updateTitle ] = React.useState<string>("");
   const [ description, updateDescription ] = React.useState<string>("");
@@ -33,20 +46,16 @@ export default function TransactionScreen(): JSX.Element {
   }
 
   return(
-    <SafeAreaView style={[ styles.container ]}>
-      <View style={[ styles.card, { marginBottom: 32 } ]}>
-        <View style={styles.image}>
-          <Icon
-            svg={MoneyBox}
-            fill="#050505"
-            height="37px"
-            width="37px"
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.text}>Entrada</Text>
-        </View>
-      </View>
+    <ScrollView
+      keyboardShouldPersistTaps="always"
+      style={[ styles.container ]}
+    >
+      <View style={styles.paddingView} />
+      <Select
+        options={TransactionOptions}
+        defaultOption={defaultTransaction}
+        onChangeSelect={(option: IOption) => updateTransaction(option.description)}
+      />
       <View style={styles.card}>
         <View style={styles.image}>
           <Icon
@@ -127,7 +136,13 @@ export default function TransactionScreen(): JSX.Element {
           ></TextInput>
         </View>
       </View>
-    </SafeAreaView>
+      <Select
+        options={CategoryOptions}
+        defaultOption={"Outros"}
+        onChangeSelect={(option: IOption) => updateCategory(option.description)}
+      />
+      <View style={styles.paddingView} />
+    </ScrollView>
   );
 }
 
@@ -135,7 +150,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
 
-    paddingVertical: 45,
     paddingHorizontal: 20,
 
     backgroundColor: "#ffffff",
@@ -168,5 +182,9 @@ const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
     justifyContent: "center",
+  },
+
+  paddingView: {
+    height: 45,
   }
 });

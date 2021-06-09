@@ -65,7 +65,9 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
           </View>
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback
-          onPress={() => navigation.navigate("Transaction")}
+          onPress={() => navigation.navigate("Transaction", {
+            defaultTransaction: "Entrada"
+          })}
         >
           <View
             style={[
