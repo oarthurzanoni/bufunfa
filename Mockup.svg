@@ -1,7 +1,7 @@
-<svg width="422" height="828" viewBox="0 0 422 828" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="422" height="833" viewBox="0 0 422 833" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0)">
 <g filter="url(#filter0_f)">
-<path d="M4 234V234C1.79086 234 0 235.791 0 238V314C0 316.209 1.79086 318 4 318V318V234Z" fill="black" fill-opacity="0.15"/>
+<path d="M4 234C1.79086 234 0 235.791 0 238V314C0 316.209 1.79086 318 4 318V234Z" fill="black" fill-opacity="0.15"/>
 </g>
 <g filter="url(#filter1_f)">
 <rect x="4" y="5" width="389" height="828" rx="60" fill="black" fill-opacity="0.15"/>
@@ -57,7 +57,7 @@
 <feGaussianBlur stdDeviation="2" result="effect1_foregroundBlur"/>
 </filter>
 <clipPath id="clip0">
-<rect width="422" height="828" fill="white"/>
+<rect width="422" height="833" fill="white"/>
 </clipPath>
 <clipPath id="clip1">
 <rect width="42.4693" height="42.4693" fill="white" transform="translate(74.6611 601.405)"/>
