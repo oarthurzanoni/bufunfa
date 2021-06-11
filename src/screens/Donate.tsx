@@ -38,7 +38,7 @@ export default function DonateScreen(): JSX.Element {
       <View style={styles.paddingView} />
       <Text style={styles.titleText}>Suporte o projeto</Text>
       <Text style={[ styles.text, { marginTop: 30 } ]}>
-        Fazendo uma doação você me incentiva a melhorar este app cada vez mais! Doe através da chave Pix abaixo e deixe na descrição da doação uma sujestão concisa sobre algum recurso que você deseja que seja acrescentado no app.
+        Fazendo uma doação você me incentiva a melhorar este app cada vez mais! Doe através da chave Pix abaixo e, caso você queira, deixe na descrição da sua doação uma sujestão concisa sobre algum recurso que você acha que seria interessante se tivesse no app.
       </Text>
       <Text style={[ styles.text, { marginTop: 30 } ]}>
         Desde já lhe agradeço por isso!
