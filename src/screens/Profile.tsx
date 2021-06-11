@@ -74,7 +74,7 @@ export default function ProfileScreen({ navigation }: Props): JSX.Element {
         onPress={() => navigation.navigate("Donate")}
       >
         <View style={[ styles.card, styles.button ]}>
-          <Text style={[ styles.text, { color: "#171717" } ]}>Gratificar</Text>
+          <Text style={[ styles.text, { color: "#171717" } ]}>Suporte o projeto</Text>
           <View style={[ styles.image, { marginLeft: 20, marginRight: 0 } ]}>
             <Icon
               svg={Donation}

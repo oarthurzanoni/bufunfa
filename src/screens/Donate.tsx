@@ -6,7 +6,6 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
-  Alert,
 } from "react-native";
 
 import Clipboard from "expo-clipboard";
@@ -37,9 +36,9 @@ export default function DonateScreen(): JSX.Element {
   return(
     <ScrollView style={styles.container}>
       <View style={styles.paddingView} />
-      <Text style={styles.titleText}>Gratificar</Text>
+      <Text style={styles.titleText}>Suporte o projeto</Text>
       <Text style={[ styles.text, { marginTop: 30 } ]}>
-        Se este app já te ajudou de alguma maneira e você deseja retribuir, você pode fazer uma doação no valor que desejar para a chave Pix abaixo.
+        Fazendo uma doação você me incentiva a melhorar este app cada vez mais! Doe através da chave Pix abaixo e deixe na descrição da doação uma sujestão concisa sobre algum recurso que você deseja que seja acrescentado no app.
       </Text>
       <Text style={[ styles.text, { marginTop: 30 } ]}>
         Desde já lhe agradeço por isso!
