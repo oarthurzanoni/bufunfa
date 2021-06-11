@@ -36,10 +36,6 @@ export default function TransactionScreen({ route }: Props): JSX.Element {
   const [ description, updateDescription ] = React.useState<string>("");
   const [ date, updateDate ] = React.useState<Date>(new Date(Date.now()));
 
-  React.useEffect(() => {
-    console.log(date);
-  }, [date]);
-
   return(
     <>
       <ScrollView

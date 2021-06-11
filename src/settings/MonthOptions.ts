@@ -1,77 +1,69 @@
-import { IOption } from "../components/Select";
+export interface IMonth {
+  number: number;
+  description: string;
+  days: number;
+}
 
-import NewYear from "../assets/images/svgs/NewYear";
-import Carnival from "../assets/images/svgs/Carnival";
-import Women from "../assets/images/svgs/Women";
-import PatriarchalCross from "../assets/images/svgs/PatriarchalCross";
-import Mothers from "../assets/images/svgs/Mothers";
-import Lovers from "../assets/images/svgs/Lovers";
-import ClosedFist from "../assets/images/svgs/ClosedFist";
-import Father from "../assets/images/svgs/Father";
-import Brazil from "../assets/images/svgs/Brazil";
-import Toy from "../assets/images/svgs/Toy";
-import Africa from "../assets/images/svgs/Africa";
-import JesusChrist from "../assets/images/svgs/JesusChrist";
-
-const MonthOptions: IOption[] = [
+const MonthOptions: IMonth[] = [
   {
-    icon: NewYear,
-    description: "janeiro"
+    number: 1,
+    description: "janeiro",
+    days: 31,
   },
-
   {
-    icon: Carnival,
-    description: "fevereiro"
+    number: 2,
+    description: "fevereiro",
+    days: 28,
   },
-
   {
-    icon: Women,
-    description: "março"
+    number: 3,
+    description: "março",
+    days: 31,
   },
-
   {
-    icon: PatriarchalCross,
-    description: "abril"
+    number: 4,
+    description: "abril",
+    days: 30,
   },
-
   {
-    icon: Mothers,
-    description: "maio"
+    number: 5,
+    description: "maio",
+    days: 31,
   },
-
   {
-    icon: Lovers,
-    description: "junho"
+    number: 6,
+    description: "junho",
+    days: 30,
   },
-
   {
-    icon: ClosedFist,
-    description: "julho"
+    number: 7,
+    description: "julho",
+    days: 31,
   },
-
   {
-    icon: Father,
-    description: "agosto"
+    number: 8,
+    description: "agosto",
+    days: 31,
   },
-
   {
-    icon: Brazil,
-    description: "setembro"
+    number: 9,
+    description: "setembro",
+    days: 30,
   },
-
   {
-    icon: Toy,
-    description: "outubro"
+    number: 10,
+    description: "outubro",
+    days: 31,
   },
-
   {
-    icon: Africa,
-    description: "novembro"
+    number: 11,
+    description: "novembro",
+    days: 30,
   },
-
   {
-    icon: JesusChrist,
-    description: "dezembro"
+    number: 12,
+    description: "dezembro",
+    days: 31,
   },
 ];
 

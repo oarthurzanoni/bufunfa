@@ -24,6 +24,10 @@ export function getCurrentMonth(date: Date): string {
   return getTheMonthName((date.getMonth() + 1));
 };
 
+export function getCurrentYear(date: Date): number {
+  return date.getFullYear();
+};
+
 export default function formatDate(date: Date): string {
   const day: string = date.getDate().toString();
   const month: string = getTheMonthName((date.getMonth() + 1));

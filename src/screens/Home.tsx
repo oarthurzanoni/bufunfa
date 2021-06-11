@@ -6,7 +6,8 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  ScrollView,
 } from "react-native";
 
 import { ProfileContext } from "../providers/Profile";
@@ -30,7 +31,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
   const { username } = React.useContext(ProfileContext);
 
   return(
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.greetingsContainer}>
         <TouchableWithoutFeedback
           onPress={() => navigation.navigate("Profile")}
@@ -105,7 +106,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
           </View>
         </TouchableWithoutFeedback>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
