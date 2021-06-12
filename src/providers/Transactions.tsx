@@ -6,16 +6,16 @@ import {
   StyleSheet
 } from "react-native";
 
+import Icon from "../components/Icon";
+import getCategoryIcon from "../utils/getCategoryIcon";
+
 interface ITransaction {
   id: number;
   date: Date;
   title: string;
   description: string;
   amount: number;
-  category: {
-    description: string;
-    icon: JSX.Element;
-  };
+  category: string;
 }
 
 interface TransactionsContextData {
@@ -45,7 +45,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
       if(categories.length === 3) break;
 
       const categoryFound: undefined | ITransaction["category"] = categories.find(category => {
-        category.description === expenses[i].category.description;
+        category === expenses[i].category;
       });
 
       if(!categoryFound) {
@@ -59,9 +59,14 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
         ? categories.map((category, index) => (
           <View key={index} style={styles.card}>
             <View style={styles.image}>
-              {category.icon}
+              <Icon
+                svg={getCategoryIcon(category)}
+                fill="#050505"
+                height="37px"
+                width="37px"
+              />
             </View>
-            <Text style={styles.text}>{category.description}</Text>
+            <Text style={styles.text}>{category}</Text>
           </View>
         ))
         : <View style={styles.noExpensesContainer}>
