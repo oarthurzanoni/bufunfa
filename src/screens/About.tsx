@@ -16,7 +16,7 @@ import { StackParamList } from "../types/Navigator";
 import Icon from "../components/Icon";
 
 import Icons8 from "../assets/images/svgs/Icons8";
-import Mail from "../assets/images/svgs/Mail";
+import GitHub from "../assets/images/svgs/GitHub";
 
 type Props = StackScreenProps<StackParamList, "About">;
 
@@ -48,13 +48,16 @@ export default function AboutScreen({ navigation }: Props): JSX.Element {
           <View style={styles.card}>
             <View style={styles.image}>
               <Icon
-                svg={Mail}
+                svg={GitHub}
                 fill="#050505"
                 height="37px"
                 width="37px"
               />
             </View>
-            <Text style={styles.text}>arthurf@tuta.io</Text>
+            <Text
+              style={styles.text}
+              onPress={() => Linking.openURL("https://github.com/Mitacho")}
+            >Mitacho</Text>
           </View>
         </View>
       </View>

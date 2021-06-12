@@ -50,8 +50,6 @@ export default function Datepicker({ date, onChangeDate }: Props): JSX.Element {
   function handleUpdateMonth(month: string, number: number, days: number): void {
     updateMonth(month);
 
-    console.log(days);
-
     const currentYear: number = getCurrentYear(new Date(Date.now()));
 
     if(month === "fevereiro") {
