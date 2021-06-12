@@ -109,7 +109,7 @@ export default function TransactionScreen({ route }: Props): JSX.Element {
             ></TextInput>
           </View>
         </View>
-        <Datepicker date={date} onChangeDate={(date: Date) => updateDate(date)} />
+        <Datepicker onChangeDate={(date: Date) => updateDate(date)} />
         <Select
           options={CategoryOptions}
           defaultOption={"Outros"}

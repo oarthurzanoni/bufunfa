@@ -30,7 +30,6 @@ interface DayItemProps {
 }
 
 interface Props {
-  date: Date | null;
   onChangeDate: (date: Date) => void;
 }
 
@@ -38,7 +37,7 @@ function createMonthWithDaysQuantity(daysQuantity: number): number[] {
   return Array.from({ length: daysQuantity }, (_, i) => i + 1);
 }
 
-export default function Datepicker({ date, onChangeDate }: Props): JSX.Element {
+export default function Datepicker({ onChangeDate }: Props): JSX.Element {
   const [ modalVisible, setModalVisible ] = React.useState<boolean>(false);
   const [ modalPickDayVisible, setModalPickDayVisible ] = React.useState<boolean>(false);
 
