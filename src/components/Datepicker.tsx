@@ -153,6 +153,7 @@ export default function Datepicker({ onChangeDate }: Props): JSX.Element {
               alignItems: "center",
 
               paddingHorizontal: 10,
+              paddingTop: 45,
             }}       
             numColumns={2}
             showsHorizontalScrollIndicator={false}
@@ -198,6 +199,7 @@ export default function Datepicker({ onChangeDate }: Props): JSX.Element {
               alignItems: "center",
 
               paddingHorizontal: 20,
+              paddingTop: 45,
             }}
             numColumns={4}
             showsHorizontalScrollIndicator={false}
@@ -263,28 +265,28 @@ const styles = StyleSheet.create({
   },
 
   monthItem: {
-    minWidth: Dimensions.get("window").width / 2 - 20,
+    minWidth: Dimensions.get("window").width / 2 - 30,
 
     flexBasis: 0,
 
     backgroundColor: "#EFEBF6",
     
-    padding: 20,
-    marginHorizontal: 4,
+    padding: 15,
+    marginHorizontal: 14,
 
     borderRadius: 4,
   },
 
   dayItem: {
-    minWidth: Dimensions.get("window").width / 4 - 20,
+    minWidth: Dimensions.get("window").width / 4 - 34,
 
     flexBasis: 0,
 
     backgroundColor: "#EFEBF6",
     
-    marginHorizontal: 4,
+    marginHorizontal: 7,
 
-    padding: 10,
+    paddingVertical: 12,
     borderRadius: 4,
   },
   
