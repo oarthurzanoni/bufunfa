@@ -18,6 +18,7 @@ import Icon from "../components/Icon";
 
 import Wallet from "../assets/images/svgs/Wallet";
 import MoneyBox from "../assets/images/svgs/MoneyBox";
+import CardPayment from "../assets/images/svgs/CardPayment";
 
 import formatCurrency from "../utils/formatCurrency";
 
@@ -26,7 +27,11 @@ import { TransactionsContext } from "../providers/Transactions";
 type Props = StackScreenProps<StackParamList, "Home">;
 
 export default function HomeScreen({ navigation }: Props): JSX.Element {
-  const { walletAmount } = React.useContext(TransactionsContext);
+  const {
+    walletAmount,
+    incomesTotal,
+    expensesTotal,
+  } = React.useContext(TransactionsContext);
 
   const { username } = React.useContext(ProfileContext);
 
@@ -101,7 +106,47 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
                 {
                   fontSize: 18
                 }
-              ]}>{formatCurrency(0)}</Text>
+              ]}>{formatCurrency(incomesTotal)}</Text>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
+          onPress={() => navigation.navigate("Transaction", {
+            defaultTransaction: "Saída"
+          })}
+        >
+          <View
+            style={[
+              styles.card,
+              {
+                backgroundColor: "#E2D5FE"
+              }
+            ]}
+          >
+            <View style={[ { marginRight: 20 } ]}>
+              <Icon
+                svg={CardPayment}
+                fill="#171717"
+                height="37px"
+                width="37px"
+              />
+            </View>
+            <View style={[
+              {
+                flex: 1,
+
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }
+            ]}>
+              <Text style={[ styles.text, styles.textDescription ]}>Saídas</Text>
+              <Text numberOfLines={1} style={[
+                styles.text,
+                styles.textAmount,
+                {
+                  fontSize: 18
+                }
+              ]}>{formatCurrency(expensesTotal)}</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>

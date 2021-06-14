@@ -12,6 +12,8 @@ import {
 import Datepicker from "../components/Datepicker";
 import Icon from "../components/Icon";
 
+import { TextInputMask } from "react-native-masked-text";
+
 import MoneyBag from "../assets/images/svgs/MoneyBag";
 import TagWindow from "../assets/images/svgs/TagWindow";
 import Pencil from "../assets/images/svgs/Pencil";
@@ -22,12 +24,17 @@ import TransactionOptions from "../settings/TransactionOptions";
 
 import { StackScreenProps } from "@react-navigation/stack";
 import { StackParamList } from "../types/Navigator";
+
 import CategoryOptions from "../settings/CategoryOptions";
+
+import { INewTransaction, TransactionsContext } from "../providers/Transactions";
 
 type Props = StackScreenProps<StackParamList, "Transaction">;
 
 export default function TransactionScreen({ route }: Props): JSX.Element {
   const { defaultTransaction } = route.params;
+
+  const { saveTransaction, isSaving } = React.useContext(TransactionsContext);
 
   const [ transaction, updateTransaction ] = React.useState<string>(defaultTransaction);
   const [ category, updateCategory ] = React.useState<string>("Outros");
@@ -35,6 +42,22 @@ export default function TransactionScreen({ route }: Props): JSX.Element {
   const [ title, updateTitle ] = React.useState<string>("");
   const [ description, updateDescription ] = React.useState<string>("");
   const [ date, updateDate ] = React.useState<Date>(new Date(Date.now()));
+
+  function handleSubmit(): void {
+    const cleanAmount: number = Number(String(amount).replace(/\D/g, ""));
+    const newTitle: string = title ? title : "Sem título";
+
+    const newTransaction: INewTransaction = {
+      type: transaction,
+      title: newTitle,
+      description,
+      amount: cleanAmount,
+      category,
+      date
+    }
+
+    saveTransaction(newTransaction);
+  }
 
   return(
     <>
@@ -59,14 +82,21 @@ export default function TransactionScreen({ route }: Props): JSX.Element {
             />
           </View>
           <View style={styles.inputContainer}>
-            <TextInput
+            <TextInputMask
               style={[ styles.text ]}
-              keyboardType="number-pad"
               placeholder="R$ 0,00"
               placeholderTextColor="#444444"
-              onChangeText={amount => updateAmount(amount)}
+              type={"money"}
+              options={{
+                precision: 2,
+                separator: ",",
+                delimiter: ".",
+                unit: "R$ ",
+                suffixUnit: ""
+              }}
               value={amount && String(amount)}
-            ></TextInput>
+              onChangeText={amount => updateAmount(amount)}
+            />
           </View>
         </View>
         <View style={styles.card}>
@@ -128,13 +158,13 @@ export default function TransactionScreen({ route }: Props): JSX.Element {
       >
         <TouchableOpacity
           style={{ marginTop: 14 }}
-          onPress={() => {}}
+          onPress={() => isSaving ? {} : handleSubmit()}
         >
           <View style={[
             styles.card,
             styles.button,
           ]}>
-            <Text style={[ styles.text, { color: "#171717" } ]}>Salvar</Text>
+            <Text style={[ styles.text, { color: "#171717" } ]}>{ isSaving ? "Salvando ..." : "Salvar" }</Text>
           </View>
         </TouchableOpacity>
       </View>

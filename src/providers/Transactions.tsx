@@ -6,11 +6,26 @@ import {
   StyleSheet
 } from "react-native";
 
+import { nanoid } from "nanoid/non-secure";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import Icon from "../components/Icon";
+
+import formatCurrency from "../utils/formatCurrency";
 import getCategoryIcon from "../utils/getCategoryIcon";
 
-interface ITransaction {
-  id: number;
+export interface ITransaction {
+  id: string;
+  type: string;
+  date: Date;
+  title: string;
+  description: string;
+  amount: number;
+  category: string;
+}
+
+export interface INewTransaction {
+  type: string;
   date: Date;
   title: string;
   description: string;
@@ -23,6 +38,10 @@ interface TransactionsContextData {
   walletAmount: number;
   walletSavings: number;
   BiggestSpendings: () => JSX.Element;
+  saveTransaction: (data: INewTransaction) => void;
+  isSaving: boolean;
+  incomesTotal: number;
+  expensesTotal: number;
 }
 
 interface TransactionsProviderProps {
@@ -33,8 +52,15 @@ export const TransactionsContext = React.createContext({} as TransactionsContext
 
 export function TransactionsProvider({ children }: TransactionsProviderProps): JSX.Element {
   const [ walletSavings, updateWalletSavings ] = React.useState<number>(0);
-  const [ walletAmount, updateWalletAmount ] = React.useState<number>(144110);
+  const [ walletAmount, updateWalletAmount ] = React.useState<number>(0);
+
   const [ expenses, setExpenses ] = React.useState<ITransaction[]>([]);
+  const [ incomes, setIncomes ] = React.useState<ITransaction[]>([]);
+
+  const [ isSaving, setIsSaving ] = React.useState<boolean>(false);
+
+  const [ incomesTotal, updateIncomesTotal ] = React.useState<number>(0);
+  const [ expensesTotal, updateExpensesTotal ] = React.useState<number>(0);
 
   function BiggestSpendings(): JSX.Element {
     expenses.sort((a, b) => b.amount - a.amount);
@@ -76,13 +102,25 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     );
   }
 
+  async function saveTransaction(data: INewTransaction): Promise<void> {
+    setIsSaving(true);
+
+    console.log(data);
+
+    setIsSaving(false);
+  }
+
   return(
     <TransactionsContext.Provider
       value={{
         expenses,
         walletAmount,
         walletSavings,
-        BiggestSpendings
+        BiggestSpendings,
+        saveTransaction,
+        isSaving,
+        incomesTotal,
+        expensesTotal,
       }}
     >
       { children }
