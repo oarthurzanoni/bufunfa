@@ -136,6 +136,41 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     }
   }
 
+  async function renderStoredIncomes(): Promise<void> {
+    const storedIncomes: string | null = await AsyncStorage.getItem("@incomes");
+
+    if(storedIncomes) {
+      const parsedStoredIncomes: ITransaction[] = JSON.parse(storedIncomes);
+
+      setIncomes(parsedStoredIncomes);
+
+      console.log("Definindo entradas armazenadas: ", parsedStoredIncomes);
+    }
+  }
+
+  async function renderStoredExpenses(): Promise<void> {
+    const storedExpenses: string | null = await AsyncStorage.getItem("@expenses");
+    
+    if(storedExpenses) {
+      const parsedStoredExpenses: ITransaction[] = JSON.parse(storedExpenses);
+
+      setExpenses(parsedStoredExpenses);
+     
+      console.log("Definindo saídas armazenadas: ", parsedStoredExpenses);
+    }
+  }
+
+  async function saveTransactions(): Promise<void> {
+    await AsyncStorage.setItem("@incomes", JSON.stringify(incomes))
+      .then(() => {
+        console.log("Entradas salvas: ", incomes);
+      });
+    await AsyncStorage.setItem("@expenses", JSON.stringify(expenses))
+    .then(() => {
+      console.log("Saídas salvas: ", expenses);
+    });;
+  }
+
   function renderWalletAmount(incomeTotal: number, expenseTotal: number): void {
     const total: number = incomeTotal - expenseTotal;
 
@@ -185,15 +220,22 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
 
     updateDebtsAmount(counter);
   }
+
+  React.useEffect(() => {
+    renderStoredIncomes();
+    renderStoredExpenses();
+  }, []);
   
   React.useEffect(() => {
     renderIncomesAmount();
     renderReceiveAmount();
+    saveTransactions();
   }, [incomes]);
 
   React.useEffect(() => {
     renderExpensesAmount();
     renderDebtsAmount();
+    saveTransactions();
   }, [expenses]);
 
   return(
