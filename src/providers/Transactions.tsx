@@ -78,12 +78,10 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
       if(categories.length === 3) break;
 
       const categoryFound: undefined | ITransaction["category"] = categories.find(category => {
-        category === expenses[i].category;
+        return category === expenses[i].category;
       });
 
       if(!categoryFound) {
-        console.log("Adicionando a categoria: ", expenses[i].category);
-
         categories.push(expenses[i].category);
       }
     }
