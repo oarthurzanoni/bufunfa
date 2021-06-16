@@ -19,6 +19,8 @@ import Icon from "../components/Icon";
 import Wallet from "../assets/images/svgs/Wallet";
 import MoneyBox from "../assets/images/svgs/MoneyBox";
 import CardPayment from "../assets/images/svgs/CardPayment";
+import ReceivDollar from "../assets/images/svgs/ReceivDollar";
+import Donate from "../assets/images/svgs/Donate";
 
 import formatCurrency from "../utils/formatCurrency";
 
@@ -29,11 +31,16 @@ type Props = StackScreenProps<StackParamList, "Home">;
 export default function HomeScreen({ navigation }: Props): JSX.Element {
   const {
     walletAmount,
-    incomesTotal,
-    expensesTotal,
+    incomesAmount,
+    expensesAmount,
+    receiveAmount,
+    debtsAmount,
   } = React.useContext(TransactionsContext);
 
   const { username } = React.useContext(ProfileContext);
+  const {
+    isLoadingInfo
+  } = React.useContext(TransactionsContext);
 
   return(
     <ScrollView style={styles.container}>
@@ -66,7 +73,9 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
               />
             </View>
             <View>
-              <Text numberOfLines={1} style={[ styles.text, styles.textAmount ]}>{formatCurrency(walletAmount)}</Text>
+              <Text numberOfLines={1} style={[ styles.text, styles.textAmount ]}>
+                {isLoadingInfo ? "Carregando ..." : formatCurrency(walletAmount)}
+              </Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -106,7 +115,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
                 {
                   fontSize: 18
                 }
-              ]}>{formatCurrency(incomesTotal)}</Text>
+              ]}>{isLoadingInfo ? "Carregando ..." : formatCurrency(incomesAmount)}</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -146,7 +155,87 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
                 {
                   fontSize: 18
                 }
-              ]}>{formatCurrency(expensesTotal)}</Text>
+              ]}>{isLoadingInfo ? "Carregando ..." : formatCurrency(expensesAmount)}</Text>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
+          onPress={() => navigation.navigate("Transaction", {
+            defaultTransaction: "A receber"
+          })}
+        >
+          <View
+            style={[
+              styles.card,
+              {
+                backgroundColor: "#CFF4CF"
+              }
+            ]}
+          >
+            <View style={[ { marginRight: 20 } ]}>
+              <Icon
+                svg={ReceivDollar}
+                fill="#171717"
+                height="37px"
+                width="37px"
+              />
+            </View>
+            <View style={[
+              {
+                flex: 1,
+
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }
+            ]}>
+              <Text style={[ styles.text, styles.textDescription ]}>A receber</Text>
+              <Text numberOfLines={1} style={[
+                styles.text,
+                styles.textAmount,
+                {
+                  fontSize: 18
+                }
+              ]}>{isLoadingInfo ? "Carregando ..." : formatCurrency(receiveAmount)}</Text>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
+          onPress={() => navigation.navigate("Transaction", {
+            defaultTransaction: "Dívida"
+          })}
+        >
+          <View
+            style={[
+              styles.card,
+              {
+                backgroundColor: "#F3DACC"
+              }
+            ]}
+          >
+            <View style={[ { marginRight: 20 } ]}>
+              <Icon
+                svg={Donate}
+                fill="#171717"
+                height="37px"
+                width="37px"
+              />
+            </View>
+            <View style={[
+              {
+                flex: 1,
+
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }
+            ]}>
+              <Text style={[ styles.text, styles.textDescription ]}>Dívidas</Text>
+              <Text numberOfLines={1} style={[
+                styles.text,
+                styles.textAmount,
+                {
+                  fontSize: 18
+                }
+              ]}>{isLoadingInfo ? "Carregando ..." : formatCurrency(debtsAmount)}</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>

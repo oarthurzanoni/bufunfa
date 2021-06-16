@@ -34,7 +34,10 @@ type Props = StackScreenProps<StackParamList, "Transaction">;
 export default function TransactionScreen({ route }: Props): JSX.Element {
   const { defaultTransaction } = route.params;
 
-  const { saveTransaction, isSaving } = React.useContext(TransactionsContext);
+  const {
+    updateTransactions,
+    isSaving,
+  } = React.useContext(TransactionsContext);
 
   const [ transaction, updateTransaction ] = React.useState<string>(defaultTransaction);
   const [ category, updateCategory ] = React.useState<string>("Outros");
@@ -56,7 +59,7 @@ export default function TransactionScreen({ route }: Props): JSX.Element {
       date
     }
 
-    saveTransaction(newTransaction);
+    updateTransactions(newTransaction);
   }
 
   return(

@@ -38,10 +38,13 @@ interface TransactionsContextData {
   walletAmount: number;
   walletSavings: number;
   BiggestSpendings: () => JSX.Element;
-  saveTransaction: (data: INewTransaction) => void;
+  updateTransactions: (data: INewTransaction) => void;
   isSaving: boolean;
-  incomesTotal: number;
-  expensesTotal: number;
+  isLoadingInfo: boolean;
+  incomesAmount: number;
+  expensesAmount: number;
+  receiveAmount: number;
+  debtsAmount: number;
 }
 
 interface TransactionsProviderProps {
@@ -51,16 +54,20 @@ interface TransactionsProviderProps {
 export const TransactionsContext = React.createContext({} as TransactionsContextData);
 
 export function TransactionsProvider({ children }: TransactionsProviderProps): JSX.Element {
-  const [ walletSavings, updateWalletSavings ] = React.useState<number>(0);
+  const [ incomesAmount, updateIncomesAmount ] = React.useState<number>(0);
+  const [ receiveAmount, updateReceiveAmount ] = React.useState<number>(0);
+  const [ expensesAmount, updateExpensesAmount ] = React.useState<number>(0);
+  const [ debtsAmount, updateDebtsAmount ] = React.useState<number>(0);
+
   const [ walletAmount, updateWalletAmount ] = React.useState<number>(0);
+
+  const [ walletSavings, updateWalletSavings ] = React.useState<number>(0);
 
   const [ expenses, setExpenses ] = React.useState<ITransaction[]>([]);
   const [ incomes, setIncomes ] = React.useState<ITransaction[]>([]);
 
   const [ isSaving, setIsSaving ] = React.useState<boolean>(false);
-
-  const [ incomesTotal, updateIncomesTotal ] = React.useState<number>(0);
-  const [ expensesTotal, updateExpensesTotal ] = React.useState<number>(0);
+  const [ isLoadingInfo, setIsLoadingInfo ] = React.useState<boolean>(false);
 
   function BiggestSpendings(): JSX.Element {
     expenses.sort((a, b) => b.amount - a.amount);
@@ -75,6 +82,8 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
       });
 
       if(!categoryFound) {
+        console.log("Adicionando a categoria: ", expenses[i].category);
+
         categories.push(expenses[i].category);
       }
     }
@@ -102,13 +111,90 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     );
   }
 
-  async function saveTransaction(data: INewTransaction): Promise<void> {
-    setIsSaving(true);
+  async function updateTransactions(data: INewTransaction): Promise<void> {
+    console.log("Trasação recebida: ", data);
 
-    console.log(data);
+    const id: string = nanoid();
 
-    setIsSaving(false);
+    const newTransaction: ITransaction = { ...data, id };
+
+    console.log("Trasação com um id atribuído: ", newTransaction);
+
+    switch(newTransaction.type) {
+      case "Entrada":
+        setIncomes([ ...incomes, newTransaction ]);
+        break;
+      case "A receber":
+        setIncomes([ ...incomes, newTransaction ]);
+        break;
+      case "Saída":
+        setExpenses([ ...expenses, newTransaction ]);
+        break;
+      case "Dívida":
+        setExpenses([ ...expenses, newTransaction ]);
+        break;
+    }
   }
+
+  function renderWalletAmount(incomeTotal: number, expenseTotal: number): void {
+    const total: number = incomeTotal - expenseTotal;
+
+    console.log("Novo total: ", total);
+    
+    updateWalletAmount(walletSavings + total);
+  }
+
+  function renderIncomesAmount(): void {
+    let counter: number = 0;
+
+    incomes.map(income => {
+      income.type === "Entrada" ? counter = counter + income.amount : {};
+    });
+
+    updateIncomesAmount(counter);
+    renderWalletAmount(counter, expensesAmount);
+  }
+
+  function renderExpensesAmount(): void {
+    let counter: number = 0;
+
+    expenses.map(expense => {
+      expense.type === "Saída" ? counter = counter + expense.amount : {};
+    });
+
+    updateExpensesAmount(counter);
+    renderWalletAmount(incomesAmount, counter);
+  }
+
+  function renderReceiveAmount(): void {
+    let counter: number = 0;
+
+    incomes.map(income => {
+      income.type === "A receber" ? counter = counter + income.amount : {};
+    });
+
+    updateReceiveAmount(counter);
+  }
+
+  function renderDebtsAmount(): void {
+    let counter: number = 0;
+
+    expenses.map(expense => {
+      expense.type === "Dívida" ? counter = counter + expense.amount : {};
+    });
+
+    updateDebtsAmount(counter);
+  }
+  
+  React.useEffect(() => {
+    renderIncomesAmount();
+    renderReceiveAmount();
+  }, [incomes]);
+
+  React.useEffect(() => {
+    renderExpensesAmount();
+    renderDebtsAmount();
+  }, [expenses]);
 
   return(
     <TransactionsContext.Provider
@@ -117,10 +203,13 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
         walletAmount,
         walletSavings,
         BiggestSpendings,
-        saveTransaction,
+        updateTransactions,
         isSaving,
-        incomesTotal,
-        expensesTotal,
+        isLoadingInfo,
+        incomesAmount,
+        expensesAmount,
+        receiveAmount,
+        debtsAmount,
       }}
     >
       { children }
