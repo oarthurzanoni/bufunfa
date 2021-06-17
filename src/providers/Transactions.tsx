@@ -21,6 +21,7 @@ export interface ITransaction {
   description: string;
   amount: number;
   category: string;
+  createdAt: Date;
 }
 
 export interface INewTransaction {
@@ -117,7 +118,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
 
     const id: string = nanoid();
 
-    const newTransaction: ITransaction = { ...data, id };
+    const newTransaction: ITransaction = { ...data, id, createdAt: new Date(Date.now()) };
 
     console.log("Trasação com um id atribuído: ", newTransaction);
 
@@ -135,6 +136,8 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
         setExpenses([ ...expenses, newTransaction ]);
         break;
     }
+
+    updateRecentTransactions([ ...recentTransactions, newTransaction ]);
   }
 
   async function renderStoredIncomes(): Promise<void> {
@@ -161,6 +164,18 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     }
   }
 
+  async function renderStoredRecentTransactions(): Promise<void> {
+    const storedRecentTransactions: string | null = await AsyncStorage.getItem("@recent");
+    
+    if(storedRecentTransactions) {
+      const parsedStoredRecentTransactions: ITransaction[] = JSON.parse(storedRecentTransactions);
+
+      updateRecentTransactions(parsedStoredRecentTransactions);
+     
+      console.log("Definindo transações recentes armazenadas: ", parsedStoredRecentTransactions);
+    }
+  }
+
   async function saveTransactions(): Promise<void> {
     await AsyncStorage.setItem("@incomes", JSON.stringify(incomes))
       .then(() => {
@@ -169,6 +184,10 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     await AsyncStorage.setItem("@expenses", JSON.stringify(expenses))
     .then(() => {
       console.log("Saídas salvas: ", expenses);
+    });;
+    await AsyncStorage.setItem("@recent", JSON.stringify(recentTransactions))
+    .then(() => {
+      console.log("Transações recentes salvas: ", recentTransactions);
     });;
   }
 
@@ -225,6 +244,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
   React.useEffect(() => {
     renderStoredIncomes();
     renderStoredExpenses();
+    renderStoredRecentTransactions();
   }, []);
   
   React.useEffect(() => {

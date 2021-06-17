@@ -31,7 +31,7 @@ import { INewTransaction, TransactionsContext } from "../providers/Transactions"
 
 type Props = StackScreenProps<StackParamList, "Transaction">;
 
-export default function TransactionScreen({ route }: Props): JSX.Element {
+export default function TransactionScreen({ route, navigation }: Props): JSX.Element {
   const { defaultTransaction } = route.params;
 
   const {
@@ -60,6 +60,8 @@ export default function TransactionScreen({ route }: Props): JSX.Element {
     }
 
     updateTransactions(newTransaction);
+
+    navigation.navigate("Home");
   }
 
   return(

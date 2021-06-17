@@ -265,6 +265,11 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
               />
             </View>
           </TouchableWithoutFeedback>
+          <View>
+            {
+              recentTransactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} />)
+            }
+          </View>
         </View>
       }
     </ScrollView>
