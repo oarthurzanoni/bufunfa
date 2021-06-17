@@ -10,6 +10,7 @@ import { nanoid } from "nanoid/non-secure";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Icon from "../components/Icon";
+import TransactionCard from "../components/TransactionCard";
 
 import getCategoryIcon from "../utils/getCategoryIcon";
 
@@ -40,6 +41,7 @@ interface TransactionsContextData {
   walletAmount: number;
   walletSavings: number;
   BiggestSpendings: () => JSX.Element;
+  RecentTransactions: () => JSX.Element;
   updateTransactions: (data: INewTransaction) => void;
   isSaving: boolean;
   isLoadingInfo: boolean;
@@ -113,6 +115,24 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     );
   }
 
+  function RecentTransactions(): JSX.Element {
+    let transactions: ITransaction[] = [];
+
+    for(let i = 0; i < recentTransactions.length; i++) {
+      if(transactions.length === 5) break;
+
+      transactions.push(recentTransactions[i]);
+    }
+
+    return(
+      <View>
+        {
+          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} />)
+        }
+      </View>
+    );
+  }
+
   async function updateTransactions(data: INewTransaction): Promise<void> {
     console.log("Trasação recebida: ", data);
 
@@ -182,13 +202,13 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
         console.log("Entradas salvas: ", incomes);
       });
     await AsyncStorage.setItem("@expenses", JSON.stringify(expenses))
-    .then(() => {
-      console.log("Saídas salvas: ", expenses);
-    });;
+      .then(() => {
+        console.log("Saídas salvas: ", expenses);
+      });
     await AsyncStorage.setItem("@recent", JSON.stringify(recentTransactions))
-    .then(() => {
-      console.log("Transações recentes salvas: ", recentTransactions);
-    });;
+      .then(() => {
+        console.log("Transações recentes salvas: ", recentTransactions);
+      });
   }
 
   function renderWalletAmount(incomeTotal: number, expenseTotal: number): void {
@@ -267,6 +287,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
         recentTransactions,
         walletAmount,
         walletSavings,
+        RecentTransactions,
         BiggestSpendings,
         updateTransactions,
         isSaving,

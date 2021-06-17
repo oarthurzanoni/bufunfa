@@ -15,7 +15,6 @@ import { ProfileContext } from "../providers/Profile";
 import { StackParamList } from "../types/Navigator";
 
 import Icon from "../components/Icon";
-import TransactionCard from "../components/TransactionCard";
 
 import Wallet from "../assets/images/svgs/Wallet";
 import MoneyBox from "../assets/images/svgs/MoneyBox";
@@ -38,6 +37,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
     receiveAmount,
     debtsAmount,
     recentTransactions,
+    RecentTransactions,
   } = React.useContext(TransactionsContext);
 
   const { username } = React.useContext(ProfileContext);
@@ -266,9 +266,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
             </View>
           </TouchableWithoutFeedback>
           <View>
-            {
-              recentTransactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} />)
-            }
+            <RecentTransactions />
           </View>
         </View>
       }

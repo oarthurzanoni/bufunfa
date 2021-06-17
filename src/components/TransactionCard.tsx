@@ -38,7 +38,7 @@ export default function TransactionCard({ transaction }: Props): JSX.Element {
       cardColor = "#E8E3F3";
       break;
     case "Dívida":
-      cardColor = "#F5EAE3";
+      cardColor = "#FAE2D4";
       break;
     default:
       cardColor = "#F6EEE0";
