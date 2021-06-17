@@ -11,7 +11,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Icon from "../components/Icon";
 
-import formatCurrency from "../utils/formatCurrency";
 import getCategoryIcon from "../utils/getCategoryIcon";
 
 export interface ITransaction {
@@ -35,6 +34,8 @@ export interface INewTransaction {
 
 interface TransactionsContextData {
   expenses: ITransaction[];
+  incomes: ITransaction[];
+  recentTransactions: ITransaction[];
   walletAmount: number;
   walletSavings: number;
   BiggestSpendings: () => JSX.Element;
@@ -62,6 +63,8 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
   const [ walletAmount, updateWalletAmount ] = React.useState<number>(0);
 
   const [ walletSavings, updateWalletSavings ] = React.useState<number>(0);
+
+  const [ recentTransactions, updateRecentTransactions ] = React.useState<ITransaction[]>([]);
 
   const [ expenses, setExpenses ] = React.useState<ITransaction[]>([]);
   const [ incomes, setIncomes ] = React.useState<ITransaction[]>([]);
@@ -103,7 +106,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
           </View>
         ))
         : <View style={styles.noExpensesContainer}>
-          <Text style={[ styles.text, { fontSize: 14 } ]}>Aqui serão exibidos os seus 3 maiores gastos.</Text>
+          <Text style={[ styles.text, { fontSize: 16 } ]}>Você não possui gastos.</Text>
         </View>
       }</>
     );
@@ -240,6 +243,8 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     <TransactionsContext.Provider
       value={{
         expenses,
+        incomes,
+        recentTransactions,
         walletAmount,
         walletSavings,
         BiggestSpendings,

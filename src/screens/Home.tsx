@@ -15,12 +15,14 @@ import { ProfileContext } from "../providers/Profile";
 import { StackParamList } from "../types/Navigator";
 
 import Icon from "../components/Icon";
+import TransactionCard from "../components/TransactionCard";
 
 import Wallet from "../assets/images/svgs/Wallet";
 import MoneyBox from "../assets/images/svgs/MoneyBox";
 import CardPayment from "../assets/images/svgs/CardPayment";
 import ReceivDollar from "../assets/images/svgs/ReceivDollar";
 import Donate from "../assets/images/svgs/Donate";
+import UpRight from "../assets/images/svgs/UpRight";
 
 import formatCurrency from "../utils/formatCurrency";
 
@@ -35,6 +37,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
     expensesAmount,
     receiveAmount,
     debtsAmount,
+    recentTransactions,
   } = React.useContext(TransactionsContext);
 
   const { username } = React.useContext(ProfileContext);
@@ -113,7 +116,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
                 styles.text,
                 styles.textAmount,
                 {
-                  fontSize: 18
+                  fontSize: 20
                 }
               ]}>{isLoadingInfo ? "Carregando ..." : formatCurrency(incomesAmount)}</Text>
             </View>
@@ -153,7 +156,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
                 styles.text,
                 styles.textAmount,
                 {
-                  fontSize: 18
+                  fontSize: 20
                 }
               ]}>{isLoadingInfo ? "Carregando ..." : formatCurrency(expensesAmount)}</Text>
             </View>
@@ -193,7 +196,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
                 styles.text,
                 styles.textAmount,
                 {
-                  fontSize: 18
+                  fontSize: 20
                 }
               ]}>{isLoadingInfo ? "Carregando ..." : formatCurrency(receiveAmount)}</Text>
             </View>
@@ -233,13 +236,37 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
                 styles.text,
                 styles.textAmount,
                 {
-                  fontSize: 18
+                  fontSize: 20
                 }
               ]}>{isLoadingInfo ? "Carregando ..." : formatCurrency(debtsAmount)}</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
       </View>
+      {
+        recentTransactions.length > 0 &&
+        <View style={styles.sectionContainer}>
+          <TouchableWithoutFeedback
+            onPress={() => navigation.navigate("Profile")}
+          >
+            <View style={[
+              {
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginBottom: 16
+              }
+            ]}>
+              <Text numberOfLines={1} style={styles.text}>Transações recentes</Text>
+              <Icon
+                svg={UpRight}
+                fill="#050505"
+                height="16px"
+                width="16px"
+              />
+            </View>
+          </TouchableWithoutFeedback>
+        </View>
+      }
     </ScrollView>
   );
 }
@@ -274,6 +301,13 @@ const styles = StyleSheet.create({
     textAlignVertical: "center",
 
     color: "#050505"
+  },
+
+  sectionContainer: {
+    justifyContent: "center",
+
+    marginVertical: 45,
+    marginHorizontal: 20,
   },
 
   walletCard: {
@@ -319,7 +353,7 @@ const styles = StyleSheet.create({
   },
 
   textDescription: {
-    fontSize: 12,
+    fontSize: 14,
 
     color: "#161618"
   }
