@@ -87,18 +87,11 @@ export default function TransactionScreen({ route, navigation }: Props): JSX.Ele
             />
           </View>
           <View style={styles.inputContainer}>
-            <TextInputMask
+            <TextInput
               style={[ styles.text ]}
               placeholder="R$ 0,00"
               placeholderTextColor="#444444"
-              type={"money"}
-              options={{
-                precision: 2,
-                separator: ",",
-                delimiter: ".",
-                unit: "R$ ",
-                suffixUnit: ""
-              }}
+              keyboardType="number-pad"
               value={amount && String(amount)}
               onChangeText={amount => updateAmount(amount)}
             />

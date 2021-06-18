@@ -196,6 +196,38 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     }
   }
 
+  function renderRecentTransactions(): void {
+    let recent: ITransaction[] = [];
+
+    incomes.sort((a, b) => {
+      return Number(new Date(b.createdAt)) - Number(new Date(a.createdAt));
+    });
+
+    expenses.sort((a, b) => {
+      return Number(new Date(b.createdAt)) - Number(new Date(a.createdAt));
+    });
+
+    for(let i = 0; i < incomes.length; i++) {
+      if(recent.length === 5) break;
+
+      if(incomes[i]) recent.push(incomes[i]);
+    }
+
+    for(let i = 0; i < expenses.length; i++) {
+      if(recent.length === 10) break;
+
+      if(expenses[i]) recent.push(expenses[i]);
+    }
+
+    recent.sort((a, b) => {
+      return Number(new Date(b.createdAt)) - Number(new Date(a.createdAt));
+    });
+
+    console.log("Recent: ", recent);
+
+    updateRecentTransactions(recent);
+  }
+
   async function saveTransactions(): Promise<void> {
     await AsyncStorage.setItem("@incomes", JSON.stringify(incomes))
       .then(() => {
@@ -204,10 +236,6 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     await AsyncStorage.setItem("@expenses", JSON.stringify(expenses))
       .then(() => {
         console.log("Saídas salvas: ", expenses);
-      });
-    await AsyncStorage.setItem("@recent", JSON.stringify(recentTransactions))
-      .then(() => {
-        console.log("Transações recentes salvas: ", recentTransactions);
       });
   }
 
@@ -270,12 +298,14 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
   React.useEffect(() => {
     renderIncomesAmount();
     renderReceiveAmount();
+    renderRecentTransactions();
     saveTransactions();
   }, [incomes]);
 
   React.useEffect(() => {
     renderExpensesAmount();
     renderDebtsAmount();
+    renderRecentTransactions();
     saveTransactions();
   }, [expenses]);
 
