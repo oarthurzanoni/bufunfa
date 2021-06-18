@@ -41,7 +41,7 @@ interface TransactionsContextData {
   walletAmount: number;
   walletSavings: number;
   BiggestSpendings: () => JSX.Element;
-  RecentTransactions: () => JSX.Element;
+  RecentTransactions: ({ limit }: { limit?: number | undefined }) => JSX.Element;
   updateTransactions: (data: INewTransaction) => void;
   isSaving: boolean;
   isLoadingInfo: boolean;
@@ -115,11 +115,13 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     );
   }
 
-  function RecentTransactions(): JSX.Element {
+  function RecentTransactions({ limit }: { limit?: number | undefined }): JSX.Element {
     let transactions: ITransaction[] = [];
 
     for(let i = 0; i < recentTransactions.length; i++) {
-      if(transactions.length === 5) break;
+      if(limit) {
+        if(transactions.length === limit) break;
+      }
 
       transactions.push(recentTransactions[i]);
     }

@@ -5,4 +5,5 @@ export type StackParamList = {
   Donate: undefined;
   Wallet: undefined;
   Transaction: { defaultTransaction: string };
+  RecentTransactions: undefined;
 }

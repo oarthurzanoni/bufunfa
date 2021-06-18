@@ -247,7 +247,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
         recentTransactions.length > 0 &&
         <View style={styles.sectionContainer}>
           <TouchableWithoutFeedback
-            onPress={() => navigation.navigate("Profile")}
+            onPress={() => navigation.navigate("RecentTransactions")}
           >
             <View style={[
               {
@@ -266,7 +266,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
             </View>
           </TouchableWithoutFeedback>
           <View>
-            <RecentTransactions />
+            <RecentTransactions limit={5} />
           </View>
         </View>
       }

@@ -15,6 +15,7 @@ import AboutScreen from "./screens/About";
 import DonateScreen from "./screens/Donate";
 import WalletScreen from "./screens/Wallet";
 import TransactionScreen from "./screens/Transaction";
+import RecentTransactionsScreen from "./screens/RecentTransactions";
 
 import { ProfileProvider } from "./providers/Profile";
 import { TransactionsProvider } from "./providers/Transactions";
@@ -51,6 +52,7 @@ export default function App(): JSX.Element {
               <Stack.Screen options={{ headerShown: false }} name="Donate" component={DonateScreen} />
               <Stack.Screen options={{ headerShown: false }} name="Wallet" component={WalletScreen} />
               <Stack.Screen options={{ headerShown: false }} name="Transaction" component={TransactionScreen} />
+              <Stack.Screen options={{ headerShown: false }} name="RecentTransactions" component={RecentTransactionsScreen} />
             </Stack.Navigator>
           </ProfileProvider>
         </TransactionsProvider>
