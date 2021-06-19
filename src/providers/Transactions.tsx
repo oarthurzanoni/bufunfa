@@ -13,6 +13,7 @@ import Icon from "../components/Icon";
 import TransactionCard from "../components/TransactionCard";
 
 import getCategoryIcon from "../utils/getCategoryIcon";
+import getNumberOfDays from "../utils/getNumberOfDays";
 
 export interface ITransaction {
   id: string;
@@ -38,10 +39,16 @@ interface TransactionsContextData {
   expenses: ITransaction[];
   incomes: ITransaction[];
   recentTransactions: ITransaction[];
+  receiveAndDebts: ITransaction[];
+  receiveSoon: ITransaction[];
+  paySoon: ITransaction[];
   walletAmount: number;
   walletSavings: number;
   BiggestSpendings: () => JSX.Element;
   RecentTransactions: ({ limit }: { limit?: number | undefined }) => JSX.Element;
+  ReceiveAndDebts: ({ limit }: { limit?: number | undefined }) => JSX.Element;
+  ReceiveSoon: ({ limit }: { limit?: number | undefined }) => JSX.Element;
+  PaySoon: ({ limit }: { limit?: number | undefined }) => JSX.Element;
   updateTransactions: (data: INewTransaction) => void;
   isSaving: boolean;
   isLoadingInfo: boolean;
@@ -68,6 +75,9 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
   const [ walletSavings, updateWalletSavings ] = React.useState<number>(0);
 
   const [ recentTransactions, updateRecentTransactions ] = React.useState<ITransaction[]>([]);
+  const [ receiveAndDebts, updateReceiveAndDebts ] = React.useState<ITransaction[]>([]);
+  const [ receiveSoon, updateReceiveSoon ] = React.useState<ITransaction[]>([]);
+  const [ paySoon, updatePaySoon ] = React.useState<ITransaction[]>([]);
 
   const [ expenses, setExpenses ] = React.useState<ITransaction[]>([]);
   const [ incomes, setIncomes ] = React.useState<ITransaction[]>([]);
@@ -135,14 +145,71 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     );
   }
 
-  async function updateTransactions(data: INewTransaction): Promise<void> {
-    console.log("Trasação recebida: ", data);
+  function ReceiveAndDebts({ limit }: { limit?: number | undefined }): JSX.Element {
+    let transactions: ITransaction[] = [];
 
+    for(let i = 0; i < receiveAndDebts.length; i++) {
+      if(limit) {
+        if(transactions.length === limit) break;
+      }
+
+      transactions.push(receiveAndDebts[i]);
+    }
+
+    return(
+      <View>
+        {
+          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} />)
+        }
+      </View>
+    );
+  }
+
+  function ReceiveSoon({ limit }: { limit?: number | undefined }): JSX.Element {
+    let transactions: ITransaction[] = [];
+
+    for(let i = 0; i < receiveSoon.length; i++) {
+      if(limit) {
+        if(transactions.length === limit) break;
+      }
+
+      transactions.push(receiveSoon[i]);
+    }
+
+    return(
+      <View>
+        {
+          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} />)
+        }
+      </View>
+    );
+  }
+
+  function PaySoon({ limit }: { limit?: number | undefined }): JSX.Element {
+    let transactions: ITransaction[] = [];
+
+    for(let i = 0; i < paySoon.length; i++) {
+      if(limit) {
+        if(transactions.length === limit) break;
+      }
+
+      transactions.push(paySoon[i]);
+    }
+
+    return(
+      <View>
+        {
+          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} />)
+        }
+      </View>
+    );
+  }
+
+
+  async function updateTransactions(data: INewTransaction): Promise<void> {
     const id: string = nanoid();
 
     const newTransaction: ITransaction = { ...data, id, createdAt: new Date(Date.now()) };
-
-    console.log("Trasação com um id atribuído: ", newTransaction);
 
     switch(newTransaction.type) {
       case "Entrada":
@@ -169,8 +236,6 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
       const parsedStoredIncomes: ITransaction[] = JSON.parse(storedIncomes);
 
       setIncomes(parsedStoredIncomes);
-
-      console.log("Definindo entradas armazenadas: ", parsedStoredIncomes);
     }
   }
 
@@ -181,8 +246,6 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
       const parsedStoredExpenses: ITransaction[] = JSON.parse(storedExpenses);
 
       setExpenses(parsedStoredExpenses);
-     
-      console.log("Definindo saídas armazenadas: ", parsedStoredExpenses);
     }
   }
 
@@ -193,8 +256,6 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
       const parsedStoredRecentTransactions: ITransaction[] = JSON.parse(storedRecentTransactions);
 
       updateRecentTransactions(parsedStoredRecentTransactions);
-     
-      console.log("Definindo transações recentes armazenadas: ", parsedStoredRecentTransactions);
     }
   }
 
@@ -210,42 +271,106 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     });
 
     for(let i = 0; i < incomes.length; i++) {
-      if(recent.length === 5) break;
-
       if(incomes[i]) recent.push(incomes[i]);
     }
 
     for(let i = 0; i < expenses.length; i++) {
-      if(recent.length === 10) break;
-
       if(expenses[i]) recent.push(expenses[i]);
     }
 
     recent.sort((a, b) => {
       return Number(new Date(b.createdAt)) - Number(new Date(a.createdAt));
     });
-
-    console.log("Recent: ", recent);
-
+    
     updateRecentTransactions(recent);
   }
 
+  function renderToReceiveAndDebts(): void {
+    let receiveAndDebts: ITransaction[] = [];
+
+    incomes.sort((a, b) => {
+      return Number(new Date(b.createdAt)) - Number(new Date(a.createdAt));
+    });
+
+    expenses.sort((a, b) => {
+      return Number(new Date(b.createdAt)) - Number(new Date(a.createdAt));
+    });
+
+    for(let i = 0; i < incomes.length; i++) {
+      if(incomes[i].type === "A receber") receiveAndDebts.push(incomes[i]);
+    }
+
+    for(let i = 0; i < expenses.length; i++) {
+      if(expenses[i].type === "Dívida") receiveAndDebts.push(expenses[i]);
+    }
+
+    receiveAndDebts.sort((a, b) => {
+      return Number(new Date(b.createdAt)) - Number(new Date(a.createdAt));
+    });
+
+    updateReceiveAndDebts(receiveAndDebts);
+  }
+
+  function renderToReceiveSoon(): void {
+    let receive: ITransaction[] = [];
+
+    incomes.sort((a, b) => {
+      return Number(new Date(b.createdAt)) - Number(new Date(a.createdAt));
+    });
+
+    for(let i = 0; i < incomes.length; i++) {
+      if(incomes[i].type === "A receber") {
+        const currentDate: Date = new Date(Date.now());
+
+        const days: number = getNumberOfDays(currentDate, incomes[i].date);
+
+        if(days < 3 && days >= 0) {
+          receive.push(incomes[i]);
+        }
+      }
+    }
+
+    receive.sort((a, b) => {
+      return Number(new Date(b.createdAt)) - Number(new Date(a.createdAt));
+    });
+
+    updateReceiveSoon(receive);
+  }
+
+  function renderPaySoon(): void {
+    let pay: ITransaction[] = [];
+
+    expenses.sort((a, b) => {
+      return Number(new Date(b.createdAt)) - Number(new Date(a.createdAt));
+    });
+
+    for(let i = 0; i < expenses.length; i++) {
+      if(expenses[i].type === "Dívida") {
+        const currentDate: Date = new Date(Date.now());
+
+        const days: number = getNumberOfDays(currentDate, expenses[i].date);
+
+        if(days < 7 && days >= 0) {
+          pay.push(expenses[i]);
+        }
+      }
+    }
+
+    pay.sort((a, b) => {
+      return Number(new Date(b.createdAt)) - Number(new Date(a.createdAt));
+    });
+
+    updatePaySoon(pay);
+  }
+
   async function saveTransactions(): Promise<void> {
-    await AsyncStorage.setItem("@incomes", JSON.stringify(incomes))
-      .then(() => {
-        console.log("Entradas salvas: ", incomes);
-      });
-    await AsyncStorage.setItem("@expenses", JSON.stringify(expenses))
-      .then(() => {
-        console.log("Saídas salvas: ", expenses);
-      });
+    await AsyncStorage.setItem("@incomes", JSON.stringify(incomes));
+    await AsyncStorage.setItem("@expenses", JSON.stringify(expenses));
   }
 
   function renderWalletAmount(incomeTotal: number, expenseTotal: number): void {
     const total: number = incomeTotal - expenseTotal;
 
-    console.log("Novo total: ", total);
-    
     updateWalletAmount(walletSavings + total);
   }
 
@@ -301,6 +426,9 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     renderIncomesAmount();
     renderReceiveAmount();
     renderRecentTransactions();
+    renderToReceiveAndDebts();
+    renderToReceiveSoon();
+    renderPaySoon();
     saveTransactions();
   }, [incomes]);
 
@@ -308,6 +436,9 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     renderExpensesAmount();
     renderDebtsAmount();
     renderRecentTransactions();
+    renderToReceiveAndDebts();
+    renderToReceiveSoon();
+    renderPaySoon();
     saveTransactions();
   }, [expenses]);
 
@@ -317,9 +448,15 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
         expenses,
         incomes,
         recentTransactions,
+        receiveAndDebts,
+        receiveSoon,
+        paySoon,
         walletAmount,
         walletSavings,
         RecentTransactions,
+        ReceiveAndDebts,
+        ReceiveSoon,
+        PaySoon,
         BiggestSpendings,
         updateTransactions,
         isSaving,

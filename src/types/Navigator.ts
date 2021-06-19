@@ -6,4 +6,7 @@ export type StackParamList = {
   Wallet: undefined;
   Transaction: { defaultTransaction: string };
   RecentTransactions: undefined;
+  ReceiveAndDebts: undefined;
+  ReceiveSoon: undefined;
+  PaySoon: undefined;
 }

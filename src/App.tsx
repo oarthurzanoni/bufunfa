@@ -16,6 +16,9 @@ import DonateScreen from "./screens/Donate";
 import WalletScreen from "./screens/Wallet";
 import TransactionScreen from "./screens/Transaction";
 import RecentTransactionsScreen from "./screens/RecentTransactions";
+import ReceiveAndDebtsScreen from "./screens/ReceiveAndDebts";
+import ReceiveSoonScreen from "./screens/ReceiveSoon";
+import PaySoonScreen from "./screens/PaySoon";
 
 import { ProfileProvider } from "./providers/Profile";
 import { TransactionsProvider } from "./providers/Transactions";
@@ -53,6 +56,9 @@ export default function App(): JSX.Element {
               <Stack.Screen options={{ headerShown: false }} name="Wallet" component={WalletScreen} />
               <Stack.Screen options={{ headerShown: false }} name="Transaction" component={TransactionScreen} />
               <Stack.Screen options={{ headerShown: false }} name="RecentTransactions" component={RecentTransactionsScreen} />
+              <Stack.Screen options={{ headerShown: false }} name="ReceiveAndDebts" component={ReceiveAndDebtsScreen} />
+              <Stack.Screen options={{ headerShown: false }} name="ReceiveSoon" component={ReceiveSoonScreen} />
+              <Stack.Screen options={{ headerShown: false }} name="PaySoon" component={PaySoonScreen} />
             </Stack.Navigator>
           </ProfileProvider>
         </TransactionsProvider>

@@ -37,7 +37,13 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
     receiveAmount,
     debtsAmount,
     recentTransactions,
+    receiveAndDebts,
+    receiveSoon,
+    paySoon,
     RecentTransactions,
+    ReceiveAndDebts,
+    ReceiveSoon,
+    PaySoon,
   } = React.useContext(TransactionsContext);
 
   const { username } = React.useContext(ProfileContext);
@@ -267,6 +273,87 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
           </TouchableWithoutFeedback>
           <View>
             <RecentTransactions limit={5} />
+          </View>
+        </View>
+      }
+      {
+        receiveAndDebts.length > 0 &&
+        <View style={styles.sectionContainer}>
+          <TouchableWithoutFeedback
+            onPress={() => navigation.navigate("ReceiveAndDebts")}
+          >
+            <View style={[
+              {
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginBottom: 16
+              }
+            ]}>
+              <Text numberOfLines={1} style={styles.text}>Dívidas e contas a receber</Text>
+              <Icon
+                svg={UpRight}
+                fill="#050505"
+                height="16px"
+                width="16px"
+              />
+            </View>
+          </TouchableWithoutFeedback>
+          <View>
+            <ReceiveAndDebts limit={5} />
+          </View>
+        </View>
+      }
+      {
+        receiveSoon.length > 0 &&
+        <View style={styles.sectionContainer}>
+          <TouchableWithoutFeedback
+            onPress={() => navigation.navigate("ReceiveSoon")}
+          >
+            <View style={[
+              {
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginBottom: 16
+              }
+            ]}>
+              <Text numberOfLines={1} style={styles.text}>Receber em breve</Text>
+              <Icon
+                svg={UpRight}
+                fill="#050505"
+                height="16px"
+                width="16px"
+              />
+            </View>
+          </TouchableWithoutFeedback>
+          <View>
+            <ReceiveSoon limit={5} />
+          </View>
+        </View>
+      }
+      {
+        paySoon.length > 0 &&
+        <View style={styles.sectionContainer}>
+          <TouchableWithoutFeedback
+            onPress={() => navigation.navigate("PaySoon")}
+          >
+            <View style={[
+              {
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginBottom: 16
+              }
+            ]}>
+              <Text numberOfLines={1} style={styles.text}>Pagar em breve</Text>
+              <Icon
+                svg={UpRight}
+                fill="#050505"
+                height="16px"
+                width="16px"
+              />
+            </View>
+          </TouchableWithoutFeedback>
+          <View>
+            <PaySoon limit={5} />
           </View>
         </View>
       }
