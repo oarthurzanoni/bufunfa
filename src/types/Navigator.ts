@@ -9,4 +9,6 @@ export type StackParamList = {
   ReceiveAndDebts: undefined;
   ReceiveSoon: undefined;
   PaySoon: undefined;
+  NotPaid: undefined;
+  NotReceived: undefined;
 }

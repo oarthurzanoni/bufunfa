@@ -42,6 +42,8 @@ interface TransactionsContextData {
   receiveAndDebts: ITransaction[];
   receiveSoon: ITransaction[];
   paySoon: ITransaction[];
+  notPaid: ITransaction[];
+  notReceived: ITransaction[];
   walletAmount: number;
   walletSavings: number;
   BiggestSpendings: () => JSX.Element;
@@ -49,6 +51,8 @@ interface TransactionsContextData {
   ReceiveAndDebts: ({ limit }: { limit?: number | undefined }) => JSX.Element;
   ReceiveSoon: ({ limit }: { limit?: number | undefined }) => JSX.Element;
   PaySoon: ({ limit }: { limit?: number | undefined }) => JSX.Element;
+  NotPaid: ({ limit }: { limit?: number | undefined }) => JSX.Element;
+  NotReceived: ({ limit }: { limit?: number | undefined }) => JSX.Element;
   updateTransactions: (data: INewTransaction) => void;
   isSaving: boolean;
   isLoadingInfo: boolean;
@@ -78,6 +82,8 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
   const [ receiveAndDebts, updateReceiveAndDebts ] = React.useState<ITransaction[]>([]);
   const [ receiveSoon, updateReceiveSoon ] = React.useState<ITransaction[]>([]);
   const [ paySoon, updatePaySoon ] = React.useState<ITransaction[]>([]);
+  const [ notPaid, updateNotPaid ] = React.useState<ITransaction[]>([]);
+  const [ notReceived, updateNotReceived ] = React.useState<ITransaction[]>([]);
 
   const [ expenses, setExpenses ] = React.useState<ITransaction[]>([]);
   const [ incomes, setIncomes ] = React.useState<ITransaction[]>([]);
@@ -205,6 +211,45 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     );
   }
 
+  function NotPaid({ limit }: { limit?: number | undefined }): JSX.Element {
+    let transactions: ITransaction[] = [];
+
+    for(let i = 0; i < notPaid.length; i++) {
+      if(limit) {
+        if(transactions.length === limit) break;
+      }
+
+      transactions.push(notPaid[i]);
+    }
+
+    return(
+      <View>
+        {
+          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} />)
+        }
+      </View>
+    );
+  }
+
+  function NotReceived({ limit }: { limit?: number | undefined }): JSX.Element {
+    let transactions: ITransaction[] = [];
+
+    for(let i = 0; i < notReceived.length; i++) {
+      if(limit) {
+        if(transactions.length === limit) break;
+      }
+
+      transactions.push(notReceived[i]);
+    }
+
+    return(
+      <View>
+        {
+          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} />)
+        }
+      </View>
+    );
+  }
 
   async function updateTransactions(data: INewTransaction): Promise<void> {
     const id: string = nanoid();
@@ -363,6 +408,58 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     updatePaySoon(pay);
   }
 
+  function renderNotPaid(): void {
+    let notPaidTransactions: ITransaction[] = [];
+
+    expenses.sort((a, b) => {
+      return Number(new Date(b.createdAt)) - Number(new Date(a.createdAt));
+    });
+
+    for(let i = 0; i < expenses.length; i++) {
+      if(expenses[i].type === "Dívida") {
+        const currentDate: Date = new Date(Date.now());
+
+        const days: number = getNumberOfDays(currentDate, expenses[i].date);
+
+        if(days < 0) {
+          notPaidTransactions.push(expenses[i]);
+        }
+      }
+    }
+
+    notPaidTransactions.sort((a, b) => {
+      return Number(new Date(b.createdAt)) - Number(new Date(a.createdAt));
+    });
+
+    updateNotPaid(notPaidTransactions);
+  }
+
+  function renderNotReceived(): void {
+    let notReceivedTransactions: ITransaction[] = [];
+
+    incomes.sort((a, b) => {
+      return Number(new Date(b.createdAt)) - Number(new Date(a.createdAt));
+    });
+
+    for(let i = 0; i < incomes.length; i++) {
+      if(incomes[i].type === "A receber") {
+        const currentDate: Date = new Date(Date.now());
+
+        const days: number = getNumberOfDays(currentDate, incomes[i].date);
+
+        if(days < 0) {
+          notReceivedTransactions.push(incomes[i]);
+        }
+      }
+    }
+
+    notReceivedTransactions.sort((a, b) => {
+      return Number(new Date(b.createdAt)) - Number(new Date(a.createdAt));
+    });
+
+    updateNotReceived(notReceivedTransactions);
+  }
+
   async function saveTransactions(): Promise<void> {
     await AsyncStorage.setItem("@incomes", JSON.stringify(incomes));
     await AsyncStorage.setItem("@expenses", JSON.stringify(expenses));
@@ -429,6 +526,8 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     renderToReceiveAndDebts();
     renderToReceiveSoon();
     renderPaySoon();
+    renderNotPaid();
+    renderNotReceived();
     saveTransactions();
   }, [incomes]);
 
@@ -439,6 +538,8 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     renderToReceiveAndDebts();
     renderToReceiveSoon();
     renderPaySoon();
+    renderNotPaid();
+    renderNotReceived();
     saveTransactions();
   }, [expenses]);
 
@@ -451,12 +552,16 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
         receiveAndDebts,
         receiveSoon,
         paySoon,
+        notPaid,
+        notReceived,
         walletAmount,
         walletSavings,
         RecentTransactions,
         ReceiveAndDebts,
         ReceiveSoon,
         PaySoon,
+        NotPaid,
+        NotReceived,
         BiggestSpendings,
         updateTransactions,
         isSaving,

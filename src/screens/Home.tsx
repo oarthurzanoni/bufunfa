@@ -40,10 +40,14 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
     receiveAndDebts,
     receiveSoon,
     paySoon,
+    notPaid,
+    notReceived,
     RecentTransactions,
     ReceiveAndDebts,
     ReceiveSoon,
     PaySoon,
+    NotPaid,
+    NotReceived,
   } = React.useContext(TransactionsContext);
 
   const { username } = React.useContext(ProfileContext);
@@ -354,6 +358,60 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
           </TouchableWithoutFeedback>
           <View>
             <PaySoon limit={5} />
+          </View>
+        </View>
+      }
+      {
+        notPaid.length > 0 &&
+        <View style={styles.sectionContainer}>
+          <TouchableWithoutFeedback
+            onPress={() => navigation.navigate("NotPaid")}
+          >
+            <View style={[
+              {
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginBottom: 16
+              }
+            ]}>
+              <Text numberOfLines={1} style={styles.text}>Não pagas</Text>
+              <Icon
+                svg={UpRight}
+                fill="#050505"
+                height="16px"
+                width="16px"
+              />
+            </View>
+          </TouchableWithoutFeedback>
+          <View>
+            <NotPaid limit={5} />
+          </View>
+        </View>
+      }
+      {
+        notReceived.length > 0 &&
+        <View style={styles.sectionContainer}>
+          <TouchableWithoutFeedback
+            onPress={() => navigation.navigate("NotReceived")}
+          >
+            <View style={[
+              {
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginBottom: 16
+              }
+            ]}>
+              <Text numberOfLines={1} style={styles.text}>Não recebidas</Text>
+              <Icon
+                svg={UpRight}
+                fill="#050505"
+                height="16px"
+                width="16px"
+              />
+            </View>
+          </TouchableWithoutFeedback>
+          <View>
+            <NotReceived limit={5} />
           </View>
         </View>
       }
