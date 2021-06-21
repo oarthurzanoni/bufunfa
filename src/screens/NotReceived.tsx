@@ -11,7 +11,7 @@ import { StackParamList } from "../types/Navigator";
 
 import { TransactionsContext } from "../providers/Transactions";
 
-type Props = StackScreenProps<StackParamList, "NotReceived">;
+type Props = StackScreenProps<StackParamList, "Home">;
 
 export default function NotReceivedScreen({ navigation }: Props): JSX.Element {
   const { NotReceived } = React.useContext(TransactionsContext);
@@ -19,7 +19,7 @@ export default function NotReceivedScreen({ navigation }: Props): JSX.Element {
   return(
     <ScrollView style={[ styles.container ]}>
       <View style={[ styles.transactionsContainer ]}>
-        <NotReceived  />
+        <NotReceived navigation={navigation} />
       </View>
     </ScrollView>
   );

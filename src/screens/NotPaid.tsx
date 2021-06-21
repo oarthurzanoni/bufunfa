@@ -11,7 +11,7 @@ import { StackParamList } from "../types/Navigator";
 
 import { TransactionsContext } from "../providers/Transactions";
 
-type Props = StackScreenProps<StackParamList, "NotPaid">;
+type Props = StackScreenProps<StackParamList, "Home">;
 
 export default function NotPaidScreen({ navigation }: Props): JSX.Element {
   const { NotPaid } = React.useContext(TransactionsContext);
@@ -19,7 +19,7 @@ export default function NotPaidScreen({ navigation }: Props): JSX.Element {
   return(
     <ScrollView style={[ styles.container ]}>
       <View style={[ styles.transactionsContainer ]}>
-        <NotPaid  />
+        <NotPaid navigation={navigation} />
       </View>
     </ScrollView>
   );

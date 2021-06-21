@@ -11,7 +11,7 @@ import { StackParamList } from "../types/Navigator";
 
 import { TransactionsContext } from "../providers/Transactions";
 
-type Props = StackScreenProps<StackParamList, "ReceiveSoon">;
+type Props = StackScreenProps<StackParamList, "Home">;
 
 export default function ReceiveSoonScreen({ navigation }: Props): JSX.Element {
   const { ReceiveSoon } = React.useContext(TransactionsContext);
@@ -19,7 +19,7 @@ export default function ReceiveSoonScreen({ navigation }: Props): JSX.Element {
   return(
     <ScrollView style={[ styles.container ]}>
       <View style={[ styles.transactionsContainer ]}>
-        <ReceiveSoon  />
+        <ReceiveSoon navigation={navigation} />
       </View>
     </ScrollView>
   );

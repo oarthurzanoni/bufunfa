@@ -21,6 +21,7 @@ import ReceiveSoonScreen from "./screens/ReceiveSoon";
 import PaySoonScreen from "./screens/PaySoon";
 import NotPaidScreen from "./screens/NotPaid";
 import NotReceivedScreen from "./screens/NotReceived";
+import DetailsScreen from "./screens/Details";
 
 import { ProfileProvider } from "./providers/Profile";
 import { TransactionsProvider } from "./providers/Transactions";
@@ -63,6 +64,7 @@ export default function App(): JSX.Element {
               <Stack.Screen options={{ headerShown: false }} name="PaySoon" component={PaySoonScreen} />
               <Stack.Screen options={{ headerShown: false }} name="NotPaid" component={NotPaidScreen} />
               <Stack.Screen options={{ headerShown: false }} name="NotReceived" component={NotReceivedScreen} />
+              <Stack.Screen options={{ headerShown: false }} name="Details" component={DetailsScreen} />
             </Stack.Navigator>
           </ProfileProvider>
         </TransactionsProvider>

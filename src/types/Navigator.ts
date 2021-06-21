@@ -1,3 +1,5 @@
+import { ITransaction } from "../providers/Transactions";
+
 export type StackParamList = {
   Home: undefined;
   Profile: undefined;
@@ -5,6 +7,7 @@ export type StackParamList = {
   Donate: undefined;
   Wallet: undefined;
   Transaction: { defaultTransaction: string };
+  Details: undefined;
   RecentTransactions: undefined;
   ReceiveAndDebts: undefined;
   ReceiveSoon: undefined;

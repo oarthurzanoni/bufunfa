@@ -4,7 +4,11 @@ import {
   StyleSheet,
   View,
   Text,
+  TouchableWithoutFeedback,
 } from "react-native";
+
+import { StackNavigationProp } from "@react-navigation/stack";
+import { StackParamList } from "../types/Navigator";
 
 import { ITransaction } from "../providers/Transactions";
 
@@ -15,9 +19,10 @@ import Icon from "./Icon";
 
 interface Props {
   transaction: ITransaction;
+  navigation: StackNavigationProp<StackParamList, "Home">;
 }
 
-export default function TransactionCard({ transaction }: Props): JSX.Element {
+export default function TransactionCard({ transaction, navigation }: Props): JSX.Element {
   const {
     category,
     title,
@@ -46,22 +51,26 @@ export default function TransactionCard({ transaction }: Props): JSX.Element {
   }
 
   return(
-    <View style={[ styles.container, { backgroundColor: `${cardColor}`, } ]}>
-      <View style={[ styles.imageContainer ]}>
-        <Icon
-          svg={getCategoryIcon(category)}
-          fill="#050505"
-          width="37px"
-          height="37px"
-        />
+    <TouchableWithoutFeedback
+      onPress={() => navigation.navigate("Details")}
+    >
+      <View style={[ styles.container, { backgroundColor: `${cardColor}`, } ]}>
+        <View style={[ styles.imageContainer ]}>
+          <Icon
+            svg={getCategoryIcon(category)}
+            fill="#050505"
+            width="37px"
+            height="37px"
+          />
+        </View>
+        <View style={[ styles.titleContainer ]}>
+          <Text style={[ styles.text ]} numberOfLines={1}>{title ? title : "Sem título"}</Text>
+        </View>
+        <View style={[ styles.amountContainer ]}>
+          <Text style={[ styles.text ]} numberOfLines={1}>{formatCurrency(amount)}</Text>
+        </View>
       </View>
-      <View style={[ styles.titleContainer ]}>
-        <Text style={[ styles.text ]} numberOfLines={1}>{title ? title : "Sem título"}</Text>
-      </View>
-      <View style={[ styles.amountContainer ]}>
-        <Text style={[ styles.text ]} numberOfLines={1}>{formatCurrency(amount)}</Text>
-      </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 

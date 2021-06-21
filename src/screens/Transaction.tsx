@@ -12,8 +12,6 @@ import {
 import Datepicker from "../components/Datepicker";
 import Icon from "../components/Icon";
 
-import { TextInputMask } from "react-native-masked-text";
-
 import MoneyBag from "../assets/images/svgs/MoneyBag";
 import TagWindow from "../assets/images/svgs/TagWindow";
 import Pencil from "../assets/images/svgs/Pencil";

@@ -15,6 +15,9 @@ import TransactionCard from "../components/TransactionCard";
 import getCategoryIcon from "../utils/getCategoryIcon";
 import getNumberOfDays from "../utils/getNumberOfDays";
 
+import { StackNavigationProp } from "@react-navigation/stack";
+import { StackParamList } from "../types/Navigator";
+
 export interface ITransaction {
   id: string;
   type: string;
@@ -35,6 +38,11 @@ export interface INewTransaction {
   category: string;
 }
 
+interface ITransactionsCard {
+  limit?: number | undefined;
+  navigation: TransactionsProviderProps["navigation"];
+}
+
 interface TransactionsContextData {
   expenses: ITransaction[];
   incomes: ITransaction[];
@@ -47,12 +55,12 @@ interface TransactionsContextData {
   walletAmount: number;
   walletSavings: number;
   BiggestSpendings: () => JSX.Element;
-  RecentTransactions: ({ limit }: { limit?: number | undefined }) => JSX.Element;
-  ReceiveAndDebts: ({ limit }: { limit?: number | undefined }) => JSX.Element;
-  ReceiveSoon: ({ limit }: { limit?: number | undefined }) => JSX.Element;
-  PaySoon: ({ limit }: { limit?: number | undefined }) => JSX.Element;
-  NotPaid: ({ limit }: { limit?: number | undefined }) => JSX.Element;
-  NotReceived: ({ limit }: { limit?: number | undefined }) => JSX.Element;
+  RecentTransactions: ({ limit, navigation }: ITransactionsCard) => JSX.Element;
+  ReceiveAndDebts: ({ limit, navigation }: ITransactionsCard) => JSX.Element;
+  ReceiveSoon: ({ limit, navigation }: ITransactionsCard) => JSX.Element;
+  PaySoon: ({ limit, navigation }: ITransactionsCard) => JSX.Element;
+  NotPaid: ({ limit, navigation }: ITransactionsCard) => JSX.Element;
+  NotReceived: ({ limit, navigation }: ITransactionsCard) => JSX.Element;
   updateTransactions: (data: INewTransaction) => void;
   isSaving: boolean;
   isLoadingInfo: boolean;
@@ -64,11 +72,12 @@ interface TransactionsContextData {
 
 interface TransactionsProviderProps {
   children: React.ReactNode;
+  navigation: StackNavigationProp<StackParamList, "Home">;
 }
 
 export const TransactionsContext = React.createContext({} as TransactionsContextData);
 
-export function TransactionsProvider({ children }: TransactionsProviderProps): JSX.Element {
+export function TransactionsProvider({ children, navigation }: TransactionsProviderProps): JSX.Element {
   const [ incomesAmount, updateIncomesAmount ] = React.useState<number>(0);
   const [ receiveAmount, updateReceiveAmount ] = React.useState<number>(0);
   const [ expensesAmount, updateExpensesAmount ] = React.useState<number>(0);
@@ -131,7 +140,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     );
   }
 
-  function RecentTransactions({ limit }: { limit?: number | undefined }): JSX.Element {
+  function RecentTransactions({ limit, navigation }: ITransactionsCard): JSX.Element {
     let transactions: ITransaction[] = [];
 
     for(let i = 0; i < recentTransactions.length; i++) {
@@ -145,13 +154,13 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     return(
       <View>
         {
-          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} />)
+          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} navigation={navigation} />)
         }
       </View>
     );
   }
 
-  function ReceiveAndDebts({ limit }: { limit?: number | undefined }): JSX.Element {
+  function ReceiveAndDebts({ limit, navigation }: ITransactionsCard): JSX.Element {
     let transactions: ITransaction[] = [];
 
     for(let i = 0; i < receiveAndDebts.length; i++) {
@@ -165,13 +174,13 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     return(
       <View>
         {
-          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} />)
+          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} navigation={navigation} />)
         }
       </View>
     );
   }
 
-  function ReceiveSoon({ limit }: { limit?: number | undefined }): JSX.Element {
+  function ReceiveSoon({ limit, navigation }: ITransactionsCard): JSX.Element {
     let transactions: ITransaction[] = [];
 
     for(let i = 0; i < receiveSoon.length; i++) {
@@ -185,13 +194,13 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     return(
       <View>
         {
-          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} />)
+          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} navigation={navigation} />)
         }
       </View>
     );
   }
 
-  function PaySoon({ limit }: { limit?: number | undefined }): JSX.Element {
+  function PaySoon({ limit, navigation }: ITransactionsCard): JSX.Element {
     let transactions: ITransaction[] = [];
 
     for(let i = 0; i < paySoon.length; i++) {
@@ -205,13 +214,13 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     return(
       <View>
         {
-          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} />)
+          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} navigation={navigation} />)
         }
       </View>
     );
   }
 
-  function NotPaid({ limit }: { limit?: number | undefined }): JSX.Element {
+  function NotPaid({ limit, navigation }: ITransactionsCard): JSX.Element {
     let transactions: ITransaction[] = [];
 
     for(let i = 0; i < notPaid.length; i++) {
@@ -225,13 +234,13 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     return(
       <View>
         {
-          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} />)
+          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} navigation={navigation} />)
         }
       </View>
     );
   }
 
-  function NotReceived({ limit }: { limit?: number | undefined }): JSX.Element {
+  function NotReceived({ limit, navigation }: ITransactionsCard): JSX.Element {
     let transactions: ITransaction[] = [];
 
     for(let i = 0; i < notReceived.length; i++) {
@@ -245,7 +254,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     return(
       <View>
         {
-          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} />)
+          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} navigation={navigation} />)
         }
       </View>
     );
