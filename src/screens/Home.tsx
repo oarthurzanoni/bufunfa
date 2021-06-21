@@ -276,7 +276,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
             </View>
           </TouchableWithoutFeedback>
           <View>
-            <RecentTransactions navigation={navigation} limit={5} />
+            <RecentTransactions limit={5} />
           </View>
         </View>
       }
@@ -303,7 +303,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
             </View>
           </TouchableWithoutFeedback>
           <View>
-            <ReceiveAndDebts navigation={navigation} limit={5} />
+            <ReceiveAndDebts limit={5} />
           </View>
         </View>
       }
@@ -330,7 +330,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
             </View>
           </TouchableWithoutFeedback>
           <View>
-            <ReceiveSoon navigation={navigation} limit={5} />
+            <ReceiveSoon limit={5} />
           </View>
         </View>
       }
@@ -357,7 +357,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
             </View>
           </TouchableWithoutFeedback>
           <View>
-            <PaySoon navigation={navigation} limit={5} />
+            <PaySoon limit={5} />
           </View>
         </View>
       }
@@ -384,7 +384,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
             </View>
           </TouchableWithoutFeedback>
           <View>
-            <NotPaid navigation={navigation} limit={5} />
+            <NotPaid limit={5} />
           </View>
         </View>
       }
@@ -411,7 +411,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
             </View>
           </TouchableWithoutFeedback>
           <View>
-            <NotReceived navigation={navigation} limit={5} />
+            <NotReceived limit={5} />
           </View>
         </View>
       }

@@ -40,7 +40,6 @@ export interface INewTransaction {
 
 interface ITransactionsCard {
   limit?: number | undefined;
-  navigation: TransactionsProviderProps["navigation"];
 }
 
 interface TransactionsContextData {
@@ -55,12 +54,12 @@ interface TransactionsContextData {
   walletAmount: number;
   walletSavings: number;
   BiggestSpendings: () => JSX.Element;
-  RecentTransactions: ({ limit, navigation }: ITransactionsCard) => JSX.Element;
-  ReceiveAndDebts: ({ limit, navigation }: ITransactionsCard) => JSX.Element;
-  ReceiveSoon: ({ limit, navigation }: ITransactionsCard) => JSX.Element;
-  PaySoon: ({ limit, navigation }: ITransactionsCard) => JSX.Element;
-  NotPaid: ({ limit, navigation }: ITransactionsCard) => JSX.Element;
-  NotReceived: ({ limit, navigation }: ITransactionsCard) => JSX.Element;
+  RecentTransactions: ({ limit }: ITransactionsCard) => JSX.Element;
+  ReceiveAndDebts: ({ limit }: ITransactionsCard) => JSX.Element;
+  ReceiveSoon: ({ limit }: ITransactionsCard) => JSX.Element;
+  PaySoon: ({ limit }: ITransactionsCard) => JSX.Element;
+  NotPaid: ({ limit }: ITransactionsCard) => JSX.Element;
+  NotReceived: ({ limit }: ITransactionsCard) => JSX.Element;
   updateTransactions: (data: INewTransaction) => void;
   isSaving: boolean;
   isLoadingInfo: boolean;
@@ -72,12 +71,11 @@ interface TransactionsContextData {
 
 interface TransactionsProviderProps {
   children: React.ReactNode;
-  navigation: StackNavigationProp<StackParamList, "Home">;
 }
 
 export const TransactionsContext = React.createContext({} as TransactionsContextData);
 
-export function TransactionsProvider({ children, navigation }: TransactionsProviderProps): JSX.Element {
+export function TransactionsProvider({ children }: TransactionsProviderProps): JSX.Element {
   const [ incomesAmount, updateIncomesAmount ] = React.useState<number>(0);
   const [ receiveAmount, updateReceiveAmount ] = React.useState<number>(0);
   const [ expensesAmount, updateExpensesAmount ] = React.useState<number>(0);
@@ -140,7 +138,7 @@ export function TransactionsProvider({ children, navigation }: TransactionsProvi
     );
   }
 
-  function RecentTransactions({ limit, navigation }: ITransactionsCard): JSX.Element {
+  function RecentTransactions({ limit }: ITransactionsCard): JSX.Element {
     let transactions: ITransaction[] = [];
 
     for(let i = 0; i < recentTransactions.length; i++) {
@@ -154,13 +152,13 @@ export function TransactionsProvider({ children, navigation }: TransactionsProvi
     return(
       <View>
         {
-          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} navigation={navigation} />)
+          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} />)
         }
       </View>
     );
   }
 
-  function ReceiveAndDebts({ limit, navigation }: ITransactionsCard): JSX.Element {
+  function ReceiveAndDebts({ limit }: ITransactionsCard): JSX.Element {
     let transactions: ITransaction[] = [];
 
     for(let i = 0; i < receiveAndDebts.length; i++) {
@@ -174,13 +172,13 @@ export function TransactionsProvider({ children, navigation }: TransactionsProvi
     return(
       <View>
         {
-          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} navigation={navigation} />)
+          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} />)
         }
       </View>
     );
   }
 
-  function ReceiveSoon({ limit, navigation }: ITransactionsCard): JSX.Element {
+  function ReceiveSoon({ limit }: ITransactionsCard): JSX.Element {
     let transactions: ITransaction[] = [];
 
     for(let i = 0; i < receiveSoon.length; i++) {
@@ -194,13 +192,13 @@ export function TransactionsProvider({ children, navigation }: TransactionsProvi
     return(
       <View>
         {
-          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} navigation={navigation} />)
+          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} />)
         }
       </View>
     );
   }
 
-  function PaySoon({ limit, navigation }: ITransactionsCard): JSX.Element {
+  function PaySoon({ limit }: ITransactionsCard): JSX.Element {
     let transactions: ITransaction[] = [];
 
     for(let i = 0; i < paySoon.length; i++) {
@@ -214,13 +212,13 @@ export function TransactionsProvider({ children, navigation }: TransactionsProvi
     return(
       <View>
         {
-          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} navigation={navigation} />)
+          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} />)
         }
       </View>
     );
   }
 
-  function NotPaid({ limit, navigation }: ITransactionsCard): JSX.Element {
+  function NotPaid({ limit }: ITransactionsCard): JSX.Element {
     let transactions: ITransaction[] = [];
 
     for(let i = 0; i < notPaid.length; i++) {
@@ -234,13 +232,13 @@ export function TransactionsProvider({ children, navigation }: TransactionsProvi
     return(
       <View>
         {
-          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} navigation={navigation} />)
+          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} />)
         }
       </View>
     );
   }
 
-  function NotReceived({ limit, navigation }: ITransactionsCard): JSX.Element {
+  function NotReceived({ limit }: ITransactionsCard): JSX.Element {
     let transactions: ITransaction[] = [];
 
     for(let i = 0; i < notReceived.length; i++) {
@@ -254,7 +252,7 @@ export function TransactionsProvider({ children, navigation }: TransactionsProvi
     return(
       <View>
         {
-          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} navigation={navigation} />)
+          transactions.map(transaction => <TransactionCard key={transaction.id} transaction={transaction} />)
         }
       </View>
     );
