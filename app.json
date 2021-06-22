@@ -4,10 +4,19 @@
   "expo": {
     "name": "Bufunfa",
     "slug": "Bufunfa",
+    "icon": "./src/assets/icon.png",
     "version": "1.0.0",
     "orientation": "portrait",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "splash": {
+      "image": "./src/assets/images/png/splash.png",
+      "backgroundColor": "#D1FBEA"
+    },
+    "android": {
+      "package": "com.bufunfa.app",
+      "versionCode": 1
+    }
   }
 }
