@@ -1,10 +1,10 @@
 # bufunfa
 
-*Em desenvolvimento*
+:tada: Finalizado :tada:
 
-Aplicativo de controle financeiro que estou desenvolvendo por conta própria.
+Aplicativo de controle financeiro que eu desenvolvi por conta própria.
 
-Estou estudando React Native e TypeScript e estou tentando desenvolver este app usando essas tecnologias.
+Estou estudando React Native e TypeScript e desenvolvi este app usando essas tecnologias.
 
 ## UI do aplicativo:
 
@@ -13,3 +13,7 @@ Estou estudando React Native e TypeScript e estou tentando desenvolver este app 
 ## Créditos
 
 Icons by [Icons8](https://icons8.com.br/)
+
+## Licença
+
+MIT
