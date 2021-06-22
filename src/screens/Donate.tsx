@@ -6,6 +6,7 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
+  Image,
 } from "react-native";
 
 import Clipboard from "expo-clipboard";
@@ -36,12 +37,39 @@ export default function DonateScreen(): JSX.Element {
   return(
     <ScrollView style={styles.container}>
       <View style={styles.paddingView} />
-      <Text style={styles.titleText}>Suporte o projeto</Text>
+      <Text style={styles.titleText}>Retribuir</Text>
       <Text style={[ styles.text, { marginTop: 30 } ]}>
-        Fazendo uma doação você me incentiva a melhorar este app cada vez mais! Doe através da chave Pix abaixo e, caso você queira, deixe na descrição da sua doação uma sujestão concisa sobre algum recurso que você acha que seria interessante se tivesse no app.
+        Este é um aplicativo gratuito e de código aberto. Está sob a licença MIT e o código-fonte encontra-se neste repositório no GitHub: github.com/Mitacho/bufunfa.
       </Text>
       <Text style={[ styles.text, { marginTop: 30 } ]}>
-        Desde já lhe agradeço por isso!
+        Se de alguma forma este app já te ajudou, eu peço que, se possível, faça uma retribuição doando qualquer valor para a chave Pix abaixo.
+      </Text>
+      <Text style={[ styles.text, { marginTop: 30 } ]}>
+        Me ajude a realizar o sonho de ter este notebook, o Samsung Galaxy Book S:
+      </Text>
+      <View
+        style={[
+          {
+            marginVertical: 40,
+          },
+        ]}
+      >
+        <Image
+          source={require("../assets/images/png/book-s.png")}
+          style={[
+            {
+              flex: 1,
+
+              height: 300,
+              width: "90%",
+
+              resizeMode: "contain",
+            },
+          ]}
+        />
+      </View>
+      <Text style={[ styles.text, { marginTop: 30 } ]}>
+        Desde já lhe agradeço por isso! :D
       </Text>
       <Text style={[ styles.text, { marginTop: 30 } ]}>
         Chave Pix aleatória:
