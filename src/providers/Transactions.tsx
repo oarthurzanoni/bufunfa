@@ -3,20 +3,26 @@ import React from "react";
 import {
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  Modal,
+  ScrollView,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
 } from "react-native";
 
 import { nanoid } from "nanoid/non-secure";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Icon from "../components/Icon";
-import TransactionCard from "../components/TransactionCard";
 
 import getCategoryIcon from "../utils/getCategoryIcon";
 import getNumberOfDays from "../utils/getNumberOfDays";
+import formatCurrency from "../utils/formatCurrency";
+import formatDate from "../utils/formatDate";
 
-import { StackNavigationProp } from "@react-navigation/stack";
-import { StackParamList } from "../types/Navigator";
+import VerifiedScroll from "../assets/images/svgs/VerifiedScroll";
+import Remove from "../assets/images/svgs/Remove";
+
 
 export interface ITransaction {
   id: string;
@@ -61,6 +67,8 @@ interface TransactionsContextData {
   NotPaid: ({ limit }: ITransactionsCard) => JSX.Element;
   NotReceived: ({ limit }: ITransactionsCard) => JSX.Element;
   updateTransactions: (data: INewTransaction) => void;
+  deleteTransaction: ({ id, type }: ITransaction) => void;
+  processTransaction: ({ id, type }: ITransaction) => void;
   isSaving: boolean;
   isLoadingInfo: boolean;
   incomesAmount: number;
@@ -71,6 +79,10 @@ interface TransactionsContextData {
 
 interface TransactionsProviderProps {
   children: React.ReactNode;
+}
+
+interface TransactionCardProps {
+  transaction: ITransaction;
 }
 
 export const TransactionsContext = React.createContext({} as TransactionsContextData);
@@ -97,6 +109,238 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
 
   const [ isSaving, setIsSaving ] = React.useState<boolean>(false);
   const [ isLoadingInfo, setIsLoadingInfo ] = React.useState<boolean>(false);
+
+  function TransactionCard({ transaction }: TransactionCardProps): JSX.Element {
+    const [ modalVisible, setModalVisible ] = React.useState<boolean>(false);
+  
+    const {
+      deleteTransaction,
+      processTransaction,
+    } = React.useContext(TransactionsContext);
+  
+    const {
+      id,
+      category,
+      title,
+      amount,
+      type,
+      createdAt,
+      date,
+      description,
+    } = transaction;
+  
+    let cardColor: string;
+    
+    switch(type) {
+      case "Entrada":
+        cardColor = "#F6EEE0";
+        break;
+      case "A receber":
+        cardColor = "#D9FAD9";
+        break;
+      case "Saída":
+        cardColor = "#E8E3F3";
+        break;
+      case "Dívida":
+        cardColor = "#FAE2D4";
+        break;
+      default:
+        cardColor = "#F6EEE0";
+        break;
+    }
+  
+    return(
+      <>
+        <TouchableWithoutFeedback
+          onPress={() => setModalVisible(true)}
+        >
+          <View style={[ styles.container, { backgroundColor: `${cardColor}`, } ]}>
+            <View style={[ styles.imageContainer ]}>
+              <Icon
+                svg={getCategoryIcon(category)}
+                fill="#050505"
+                width="37px"
+                height="37px"
+              />
+            </View>
+            <View style={[ styles.titleContainer ]}>
+              <Text style={[ styles.text ]} numberOfLines={1}>{title ? title : "Sem título"}</Text>
+            </View>
+            <View style={[ styles.amountContainer ]}>
+              <Text style={[ styles.text ]} numberOfLines={1}>{formatCurrency(amount)}</Text>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+        <Modal
+          animationType="slide"
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)}
+        >
+          <ScrollView
+            keyboardShouldPersistTaps="always"
+            contentContainerStyle={[
+              {
+                marginVertical: 10,
+                marginHorizontal: 20,
+            
+                justifyContent: "center",
+              }
+            ]}
+          >
+            <View style={styles.paddingView} />
+            <View style={[ styles.card, { marginBottom: 30 } ]}>
+            <View style={[ styles.imageContainer, { marginLeft: 0, paddingHorizontal: 0 } ]}>
+              <Icon
+                svg={getCategoryIcon(category)}
+                fill="#050505"
+                width="37px"
+                height="37px"
+              />
+            </View>
+              <View style={[ styles.titleContainer ]}>
+                <Text
+                  style={[
+                    styles.text,
+                    {
+                      color: "#444444",
+                    }
+                  ]}
+                  numberOfLines={1}
+                >
+                  { category }
+                </Text>
+              </View>
+            </View>
+            <Text
+              style={[
+                styles.text,
+                {
+                  color: `${ type === "Entrada" || type === "A receber" ? "#70B657" : "#D17777" }`,
+                  marginBottom: 20,
+                }
+              ]}
+              numberOfLines={1}
+            >
+              {formatCurrency(amount)}
+            </Text>
+            <Text style={[ styles.text, { fontFamily: "Poppins-Medium" } ]} numberOfLines={1}>{title ? title : "Sem título"}</Text>
+            <Text
+              style={[
+                styles.text,
+                {
+                  color: "#444444",
+                  marginBottom: 45,
+                  marginTop: 15,
+                }
+              ]}
+              numberOfLines={1}
+            >
+              { formatDate(new Date(date)) }
+            </Text>
+            <Text style={[ styles.text ]}>{ description }</Text>
+            <View style={styles.paddingView} />
+          </ScrollView>
+          <View
+            style={[
+              {
+                flexDirection: "row",
+  
+                paddingHorizontal: 20,
+  
+                backgroundColor: "#ffffff"
+              }
+            ]}
+          >
+            {
+              (type === "A receber" || type === "Dívida") &&
+              <TouchableOpacity
+                style={{ marginTop: 14 }}
+                onPress={() => {
+                  processTransaction(transaction);
+                  setModalVisible(false);
+                }}
+              >
+                <View style={[
+                  styles.card,
+                  styles.button,
+                ]}>
+                  <Icon
+                    fill="#050505"
+                    height="37px"
+                    width="37px"
+                    svg={VerifiedScroll}
+                  />
+                </View>
+              </TouchableOpacity>
+            }
+            <TouchableOpacity
+              style={{ marginTop: 14 }}
+              onPress={() => {
+                deleteTransaction(transaction);
+                setModalVisible(false);
+              }}
+            >
+              <View style={[
+                styles.card,
+                styles.button,
+              ]}>
+                <Icon
+                  fill="#050505"
+                  height="37px"
+                  width="37px"
+                  svg={Remove}
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+      </>
+    );
+  }  
+
+  function deleteTransaction({ id, type }: ITransaction): void {
+    if(type === "Entrada" || type === "A receber") {
+      setIncomes(prev => prev.filter(item => item.id !== id));
+    }
+
+    else if(type === "Saída" || type === "Dívida") {
+      setExpenses(prev => prev.filter(item => item.id !== id));
+    }
+  }
+
+  function processTransaction({ id, type }: ITransaction): void {
+    if(type === "A receber") {
+      const transactionDetails: ITransaction = incomes.find(transaction => transaction.id === id)!;
+      
+      const newId: string = nanoid();
+
+      const newTransaction: ITransaction = {
+        ...transactionDetails,
+        type: "Entrada",
+        id: newId,
+        createdAt: new Date(Date.now())
+      };
+  
+      setIncomes([ ...incomes, newTransaction ]);
+      setIncomes(prev => prev.filter(item => item.id !== transactionDetails.id));
+    }
+
+    else if(type === "Dívida") {
+      const transactionDetails: ITransaction = expenses.find(transaction => transaction.id === id)!;
+
+      const newId: string = nanoid();
+     
+      const newTransaction: ITransaction = {
+        ...transactionDetails,
+        type: "Saída",
+        id: newId,
+        createdAt: new Date(Date.now())
+      };
+  
+      setExpenses([ ...expenses, newTransaction ]);
+      setExpenses(prev => prev.filter(item => item.id !== transactionDetails.id));
+    }
+  }
 
   function BiggestSpendings(): JSX.Element {
     expenses.sort((a, b) => b.amount - a.amount);
@@ -571,6 +815,8 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
         NotReceived,
         BiggestSpendings,
         updateTransactions,
+        deleteTransaction,
+        processTransaction,
         isSaving,
         isLoadingInfo,
         incomesAmount,
@@ -613,5 +859,67 @@ const styles = StyleSheet.create({
     justifyContent: "center",
 
     height: 100
-  }
+  },
+
+  container: {
+    height: 56,
+    width: "100%",
+
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+
+    marginVertical: 4,
+
+    borderRadius: 8,
+
+    backgroundColor: "#E8E3F3",
+  },
+
+  imageContainer: {
+    height: "100%",
+
+    alignItems: "center",
+    justifyContent: "center",
+
+    marginLeft: 12,
+    paddingHorizontal: 4,
+  },
+
+  titleContainer: {
+    flex: 1,
+    height: "100%",
+
+    alignItems: "flex-start",
+    justifyContent: "center",
+
+    paddingHorizontal: 24,
+  },
+
+  amountContainer: {
+    width: 110,
+    height: "100%",
+
+    alignItems: "flex-start",
+    justifyContent: "center",
+
+    marginRight: 12,
+    paddingHorizontal: 4,
+  },
+
+  paddingView: {
+    height: 45,
+  },
+
+  button: {
+    height: 60,
+
+    marginRight: 12,
+    paddingHorizontal: 12,
+
+    borderRadius: 4,
+
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
