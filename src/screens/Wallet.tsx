@@ -21,7 +21,11 @@ import { TransactionsContext } from "../providers/Transactions";
 import formatCurrency from "../utils/formatCurrency";
 
 export default function WalletScreen(): JSX.Element {
-  const { walletAmount, storeWalletSavings } = React.useContext(TransactionsContext);
+  const {
+    walletAmount,
+    storeWalletSavings,
+    resetAll,
+  } = React.useContext(TransactionsContext);
 
   const [ modalSaveWalletVisible, setModalSaveWalletVisible ] = React.useState<boolean>(false);
   const [ modalClearAllVisible, setModalClearAllVisible ] = React.useState<boolean>(false);
@@ -120,7 +124,10 @@ export default function WalletScreen(): JSX.Element {
             Excluí todas as suas entradas, saídas, contas a receber e dívidas, começando do zero.
           </Text>
           <TouchableOpacity
-            onPress={() => { setModalClearAllVisible(false); }}
+            onPress={() => {
+              resetAll();
+              setModalClearAllVisible(false);
+            }}
           >
             <View style={[ styles.button, { backgroundColor: "#E2D5FE", marginBottom: 45 } ]}>
               <Text style={[ styles.text, { color: "#171717" } ]}>Limpar tudo</Text>

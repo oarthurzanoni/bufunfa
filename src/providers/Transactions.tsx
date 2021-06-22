@@ -70,6 +70,7 @@ interface TransactionsContextData {
   deleteTransaction: ({ id, type }: ITransaction) => void;
   processTransaction: ({ id, type }: ITransaction) => void;
   storeWalletSavings: () => Promise<void>;
+  resetAll: () => Promise<void>;
   incomesAmount: number;
   expensesAmount: number;
   receiveAmount: number;
@@ -569,6 +570,15 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     setExpenses(prev => prev.filter(item => item.type !== "Saída"));
   }
 
+  async function resetAll(): Promise<void> {
+    await AsyncStorage.setItem("@savings", "");
+
+    updateWalletSavings(0);
+
+    setIncomes([]);
+    setExpenses([]);
+  }
+
   function renderRecentTransactions(): void {
     let recent: ITransaction[] = [];
 
@@ -833,6 +843,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
         deleteTransaction,
         processTransaction,
         storeWalletSavings,
+        resetAll,
         incomesAmount,
         expensesAmount,
         receiveAmount,
