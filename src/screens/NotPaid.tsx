@@ -19,7 +19,7 @@ export default function NotPaidScreen({ navigation }: Props): JSX.Element {
   return(
     <ScrollView style={[ styles.container ]}>
       <View style={[ styles.transactionsContainer ]}>
-        <NotPaid navigation={navigation} />
+        <NotPaid />
       </View>
     </ScrollView>
   );

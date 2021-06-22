@@ -69,8 +69,6 @@ interface TransactionsContextData {
   updateTransactions: (data: INewTransaction) => void;
   deleteTransaction: ({ id, type }: ITransaction) => void;
   processTransaction: ({ id, type }: ITransaction) => void;
-  isSaving: boolean;
-  isLoadingInfo: boolean;
   incomesAmount: number;
   expensesAmount: number;
   receiveAmount: number;
@@ -187,7 +185,6 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
               }
             ]}
           >
-            <View style={styles.paddingView} />
             <View style={[ styles.card, { marginBottom: 30 } ]}>
             <View style={[ styles.imageContainer, { marginLeft: 0, paddingHorizontal: 0 } ]}>
               <Icon
@@ -238,7 +235,6 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
               { formatDate(new Date(date)) }
             </Text>
             <Text style={[ styles.text ]}>{ description }</Text>
-            <View style={styles.paddingView} />
           </ScrollView>
           <View
             style={[
@@ -254,7 +250,6 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
             {
               (type === "A receber" || type === "Dívida") &&
               <TouchableOpacity
-                style={{ marginTop: 14 }}
                 onPress={() => {
                   processTransaction(transaction);
                   setModalVisible(false);
@@ -274,7 +269,6 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
               </TouchableOpacity>
             }
             <TouchableOpacity
-              style={{ marginTop: 14 }}
               onPress={() => {
                 deleteTransaction(transaction);
                 setModalVisible(false);
@@ -817,8 +811,6 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
         updateTransactions,
         deleteTransaction,
         processTransaction,
-        isSaving,
-        isLoadingInfo,
         incomesAmount,
         expensesAmount,
         receiveAmount,

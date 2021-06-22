@@ -19,7 +19,7 @@ export default function PaySoonScreen({ navigation }: Props): JSX.Element {
   return(
     <ScrollView style={[ styles.container ]}>
       <View style={[ styles.transactionsContainer ]}>
-        <PaySoon navigation={navigation} />
+        <PaySoon />
       </View>
     </ScrollView>
   );

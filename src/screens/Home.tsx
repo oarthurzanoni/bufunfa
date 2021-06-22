@@ -51,9 +51,6 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
   } = React.useContext(TransactionsContext);
 
   const { username } = React.useContext(ProfileContext);
-  const {
-    isLoadingInfo
-  } = React.useContext(TransactionsContext);
 
   return(
     <ScrollView style={styles.container}>
@@ -87,7 +84,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
             </View>
             <View>
               <Text numberOfLines={1} style={[ styles.text, styles.textAmount ]}>
-                {isLoadingInfo ? "Carregando ..." : formatCurrency(walletAmount)}
+                {formatCurrency(walletAmount)}
               </Text>
             </View>
           </View>
@@ -128,7 +125,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
                 {
                   fontSize: 20
                 }
-              ]}>{isLoadingInfo ? "Carregando ..." : formatCurrency(incomesAmount)}</Text>
+              ]}>{formatCurrency(incomesAmount)}</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -168,7 +165,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
                 {
                   fontSize: 20
                 }
-              ]}>{isLoadingInfo ? "Carregando ..." : formatCurrency(expensesAmount)}</Text>
+              ]}>{formatCurrency(expensesAmount)}</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -208,7 +205,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
                 {
                   fontSize: 20
                 }
-              ]}>{isLoadingInfo ? "Carregando ..." : formatCurrency(receiveAmount)}</Text>
+              ]}>{formatCurrency(receiveAmount)}</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -248,7 +245,7 @@ export default function HomeScreen({ navigation }: Props): JSX.Element {
                 {
                   fontSize: 20
                 }
-              ]}>{isLoadingInfo ? "Carregando ..." : formatCurrency(debtsAmount)}</Text>
+              ]}>{formatCurrency(debtsAmount)}</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>

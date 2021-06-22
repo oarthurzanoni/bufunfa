@@ -19,7 +19,7 @@ export default function NotReceivedScreen({ navigation }: Props): JSX.Element {
   return(
     <ScrollView style={[ styles.container ]}>
       <View style={[ styles.transactionsContainer ]}>
-        <NotReceived navigation={navigation} />
+        <NotReceived />
       </View>
     </ScrollView>
   );

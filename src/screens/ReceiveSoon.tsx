@@ -19,7 +19,7 @@ export default function ReceiveSoonScreen({ navigation }: Props): JSX.Element {
   return(
     <ScrollView style={[ styles.container ]}>
       <View style={[ styles.transactionsContainer ]}>
-        <ReceiveSoon navigation={navigation} />
+        <ReceiveSoon />
       </View>
     </ScrollView>
   );

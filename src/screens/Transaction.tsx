@@ -34,7 +34,6 @@ export default function TransactionScreen({ route, navigation }: Props): JSX.Ele
 
   const {
     updateTransactions,
-    isSaving,
   } = React.useContext(TransactionsContext);
 
   const [ transaction, updateTransaction ] = React.useState<string>(defaultTransaction);
@@ -154,13 +153,13 @@ export default function TransactionScreen({ route, navigation }: Props): JSX.Ele
       >
         <TouchableOpacity
           style={{ marginTop: 14 }}
-          onPress={() => isSaving ? {} : handleSubmit()}
+          onPress={() => handleSubmit()}
         >
           <View style={[
             styles.card,
             styles.button,
           ]}>
-            <Text style={[ styles.text, { color: "#171717" } ]}>{ isSaving ? "Salvando ..." : "Salvar" }</Text>
+            <Text style={[ styles.text, { color: "#171717" } ]}>Salvar</Text>
           </View>
         </TouchableOpacity>
       </View>

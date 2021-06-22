@@ -19,7 +19,7 @@ export default function ReceiveAndDebtsScreen({ navigation }: Props): JSX.Elemen
   return(
     <ScrollView style={[ styles.container ]}>
       <View style={[ styles.transactionsContainer ]}>
-        <ReceiveAndDebts navigation={navigation} />
+        <ReceiveAndDebts />
       </View>
     </ScrollView>
   );
