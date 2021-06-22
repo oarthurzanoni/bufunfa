@@ -69,6 +69,7 @@ interface TransactionsContextData {
   updateTransactions: (data: INewTransaction) => void;
   deleteTransaction: ({ id, type }: ITransaction) => void;
   processTransaction: ({ id, type }: ITransaction) => void;
+  storeWalletSavings: () => Promise<void>;
   incomesAmount: number;
   expensesAmount: number;
   receiveAmount: number;
@@ -519,6 +520,16 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
     updateRecentTransactions([ ...recentTransactions, newTransaction ]);
   }
 
+  async function renderStoredSavings(): Promise<void> {
+    const storedSavings: string | null = await AsyncStorage.getItem("@savings");
+
+    if(storedSavings) {
+      const parsedSavings: number = Number(JSON.parse(storedSavings));
+
+      updateWalletSavings(parsedSavings);
+    }
+  }
+
   async function renderStoredIncomes(): Promise<void> {
     const storedIncomes: string | null = await AsyncStorage.getItem("@incomes");
 
@@ -547,6 +558,15 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
 
       updateRecentTransactions(parsedStoredRecentTransactions);
     }
+  }
+
+  async function storeWalletSavings(): Promise<void> {
+    await AsyncStorage.setItem("@savings", String(walletAmount));
+    
+    updateWalletSavings(walletAmount);
+
+    setIncomes(prev => prev.filter(item => item.type !== "Entrada"));
+    setExpenses(prev => prev.filter(item => item.type !== "Saída"));
   }
 
   function renderRecentTransactions(): void {
@@ -759,6 +779,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
   }
 
   React.useEffect(() => {
+    renderStoredSavings();
     renderStoredIncomes();
     renderStoredExpenses();
     renderStoredRecentTransactions();
@@ -811,6 +832,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps): J
         updateTransactions,
         deleteTransaction,
         processTransaction,
+        storeWalletSavings,
         incomesAmount,
         expensesAmount,
         receiveAmount,

@@ -21,7 +21,7 @@ import { TransactionsContext } from "../providers/Transactions";
 import formatCurrency from "../utils/formatCurrency";
 
 export default function WalletScreen(): JSX.Element {
-  const { walletAmount } = React.useContext(TransactionsContext);
+  const { walletAmount, storeWalletSavings } = React.useContext(TransactionsContext);
 
   const [ modalSaveWalletVisible, setModalSaveWalletVisible ] = React.useState<boolean>(false);
   const [ modalClearAllVisible, setModalClearAllVisible ] = React.useState<boolean>(false);
@@ -91,7 +91,10 @@ export default function WalletScreen(): JSX.Element {
             Isso fará com que todas as suas entradas, saídas, contas a receber e dívidas que foram registradas nas datas anteriores a hoje sejam excluídas mas o saldo na sua carteira se manterá o mesmo.
           </Text>
           <TouchableOpacity
-            onPress={() => { setModalSaveWalletVisible(false); }}
+            onPress={() => {
+              storeWalletSavings();
+              setModalSaveWalletVisible(false);
+            }}
           >
             <View style={[ styles.button, { backgroundColor: "#CFF4CF", marginBottom: 45 } ]}>
               <Text style={[ styles.text, { color: "#171717" } ]}>Fechar o mês</Text>
