@@ -11,7 +11,9 @@ Você pode baixar o aplicativo na seção de [releases](https://github.com/Mitac
 
 Ou você pode baixar [aqui no link direto](https://github.com/Mitacho/bufunfa/releases/download/v1/Bufunfa.apk)
 
-Em breve este aplicativo vai estar na Amazon Appstore!
+Estarei tentando colocar este aplicativo na Amazon Appstore e no F-Droid!
+
+Análise do .apk no VirusTotal: [https://www.virustotal.com/gui/file/8eaac19c6d1ebc008521c9fce11f056b0c65915a4971c8b2b19e80e9acc4fd28/detection](https://www.virustotal.com/gui/file/8eaac19c6d1ebc008521c9fce11f056b0c65915a4971c8b2b19e80e9acc4fd28/detection)
 
 ## UI do aplicativo:
 
