@@ -15,6 +15,7 @@
       "backgroundColor": "#D1FBEA"
     },
     "android": {
+      "permissions": [],
       "package": "com.bufunfa.app",
       "versionCode": 1
     }
