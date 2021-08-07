@@ -7,7 +7,6 @@ Aplicativo de controle financeiro que eu desenvolvi por conta própria.
 Estou estudando React Native e TypeScript e desenvolvi este app usando essas tecnologias.
 
 ## Download
-**O aplicativo está disponível para download na loja Amazon AppStore! Basta procurar por: Bufunfa**
 
 Você pode baixar o aplicativo na seção de [releases](https://github.com/Mitacho/bufunfa/releases/tag/v1)
 
