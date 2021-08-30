@@ -1,5 +1,7 @@
 # bufunfa
 
+:warning: I plan to improve this app in the future.
+
 :tada: Finalizado :tada:
 
 Aplicativo de controle financeiro que eu desenvolvi por conta própria.
