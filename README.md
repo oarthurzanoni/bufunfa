@@ -1,29 +1,27 @@
-# bufunfa
+# Bufunfa
 
-:warning: I plan to improve this app in the future.
+:warning: A version with improved code and new features is under development.
 
-:tada: Finalizado :tada:
+A React Native money management app.
 
-Aplicativo de controle financeiro que eu desenvolvi por conta própria.
-
-Estou estudando React Native e TypeScript e desenvolvi este app usando essas tecnologias.
+This app was developed with the purpose of studying. It was developed when I was studying React Native and TypeScript.
 
 ## Download
 
-Você pode baixar o aplicativo na seção de [releases](https://github.com/Mitacho/bufunfa/releases/tag/v1)
+You can download the app in the [releases](https://github.com/Mitacho/bufunfa/releases/tag/v1) section.
 
-Ou você também pode baixar [aqui no link direto](https://github.com/Mitacho/bufunfa/releases/download/v1/Bufunfa.apk)
+Or you can download through [this link](https://github.com/Mitacho/bufunfa/releases/download/v1/Bufunfa.apk) as well.
 
-Análise do .apk no VirusTotal: [https://www.virustotal.com/gui/file/a0ad76bc7daf23762f7c2a6b4f651ecbdc6d23aba03d50c4acc97751461b7054/detection](https://www.virustotal.com/gui/file/a0ad76bc7daf23762f7c2a6b4f651ecbdc6d23aba03d50c4acc97751461b7054/detection)
+Analysis of the .apk in VirusTotal: [https://www.virustotal.com/gui/file/a0ad76bc7daf23762f7c2a6b4f651ecbdc6d23aba03d50c4acc97751461b7054/detection](https://www.virustotal.com/gui/file/a0ad76bc7daf23762f7c2a6b4f651ecbdc6d23aba03d50c4acc97751461b7054/detection)
 
-## UI do aplicativo:
+## Screenshots:
 
 ![Preview](https://github.com/Mitacho/bufunfa/blob/main/Mockup.svg)
 
-## Créditos
+## Credits
 
 Icons by [Icons8](https://icons8.com.br/)
 
-## Licença
+## License
 
-MIT
+Released under the [MIT License](opensource.org/licenses/MIT).
