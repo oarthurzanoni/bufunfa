@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
+import { useTheme } from "hooks/useTheme";
 import { Fragment } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
-import { useTheme } from "../hook/useTheme";
 
 export function HomeScreen() {
   const { theme, changeTheme } = useTheme();

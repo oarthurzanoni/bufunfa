@@ -1,10 +1,10 @@
-import { ThemeProvider } from "./context/theme";
-import { HomeScreen } from "./screens/Home";
+import { ThemeProvider } from "contexts";
+import { Main } from "./src";
 
 export default function App() {
   return (
     <ThemeProvider>
-      <HomeScreen />
+      <Main />
     </ThemeProvider>
   );
 }
