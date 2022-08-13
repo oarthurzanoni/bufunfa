@@ -5,10 +5,10 @@ import { Button, StyleSheet, Text, View } from "react-native";
 
 import type { ScreenProps } from "./types";
 
-type HomeScreenProps = ScreenProps<"Home">;
+type ProfileScreenProps = ScreenProps<"Profile">;
 
-export function HomeScreen({ navigation }: HomeScreenProps) {
-  const { theme, changeTheme } = useTheme();
+export function ProfileScreen({ navigation }: ProfileScreenProps) {
+  const { theme } = useTheme();
 
   const textStyle = {
     color: theme.name === "light" ? "#050505" : "#f5f5f5",
@@ -34,18 +34,8 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
             },
           ]}
         >
-          <Text style={textStyle}>Bufunfa v2</Text>
-          <Text style={textStyle}>{theme.name}</Text>
-          <Button
-            onPress={() =>
-              changeTheme(theme.name === "dark" ? "light" : "dark")
-            }
-            title="Mudar o tema"
-          />
-          <Button
-            onPress={() => navigation.navigate("Profile")}
-            title="Profile"
-          />
+          <Text style={textStyle}>Profile</Text>
+          <Button onPress={() => navigation.goBack()} title="Go back" />
         </View>
       </View>
     </Fragment>
