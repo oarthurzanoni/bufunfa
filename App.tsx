@@ -1,20 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { ThemeProvider } from "./context/theme";
+import { HomeScreen } from "./screens/Home";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Bufunfa v2</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ThemeProvider>
+      <HomeScreen />
+    </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
