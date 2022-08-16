@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useTheme } from "hooks/useTheme";
+import { useTheme } from "hooks";
 import { Fragment } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 
