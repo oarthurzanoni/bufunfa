@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useTheme } from "hooks/useTheme";
+import { useTheme } from "hooks";
 import { Fragment } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 
@@ -34,7 +34,9 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
             },
           ]}
         >
-          <Text style={textStyle}>Bufunfa v2</Text>
+          <Text style={[textStyle, { fontFamily: "Poppins_400Regular" }]}>
+            Bufunfa v2
+          </Text>
           <Text style={textStyle}>{theme.name}</Text>
           <Button
             onPress={() =>
