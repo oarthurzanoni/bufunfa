@@ -1,5 +1,29 @@
 export type Theme = {
   name: "dark" | "light";
+  statusBar: {
+    style: "dark" | "light";
+  };
+  fonts: {
+    regular: string;
+    medium: string;
+    bold: string;
+  };
+  sizes: {
+    fonts: {
+      xs: number;
+      sm: number;
+      md: number;
+      lg: number;
+      xl: number;
+    };
+    spacing: {
+      xs: number;
+      sm: number;
+      md: number;
+      lg: number;
+      xl: number;
+    };
+  };
   colors: {
     primary: {
       "600": string;

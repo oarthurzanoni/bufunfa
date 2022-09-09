@@ -2,6 +2,30 @@ import { Theme } from "./types";
 
 export const dark: Theme = {
   name: "dark",
+  statusBar: {
+    style: "light",
+  },
+  fonts: {
+    regular: "Poppins_400Regular",
+    medium: "Poppins_500Medium",
+    bold: "Poppins_700Bold",
+  },
+  sizes: {
+    fonts: {
+      xs: 12,
+      sm: 14,
+      md: 16,
+      lg: 20,
+      xl: 24,
+    },
+    spacing: {
+      xs: 4,
+      sm: 8,
+      md: 16,
+      lg: 24,
+      xl: 32,
+    },
+  },
   colors: {
     primary: {
       "600": "#506055",
