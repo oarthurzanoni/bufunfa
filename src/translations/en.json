@@ -1,0 +1,4 @@
+{
+  "hello": "Hello, %{name}!",
+  "hello_stranger": "Hey, what's your name?"
+}
