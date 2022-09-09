@@ -11,3 +11,9 @@ export type ScreenProps<Screen extends Screens> = NativeStackScreenProps<
   RootStackParamList,
   Screen
 >;
+
+declare global {
+  namespace ReactNavigation {
+    interface RootParamList extends RootStackParamList {}
+  }
+}
