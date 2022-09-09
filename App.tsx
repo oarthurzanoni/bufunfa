@@ -1,15 +1,17 @@
 import {
   Poppins_400Regular,
   Poppins_500Medium,
+  Poppins_700Bold,
   useFonts,
 } from "@expo-google-fonts/poppins";
-import { ThemeProvider } from "contexts";
+import { ComposeProviders, ThemeProvider, UserProvider } from "contexts";
 import { Main } from "./src/index";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
+    Poppins_700Bold,
   });
 
   if (!fontsLoaded) {
@@ -17,8 +19,8 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider>
+    <ComposeProviders with={[ThemeProvider, UserProvider]}>
       <Main />
-    </ThemeProvider>
+    </ComposeProviders>
   );
 }
