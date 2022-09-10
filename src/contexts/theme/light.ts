@@ -11,12 +11,19 @@ export const light: Theme = {
     bold: "Poppins_700Bold",
   },
   sizes: {
+    icons: {
+      xs: 14,
+      sm: 16,
+      md: 24,
+      lg: 36,
+      xl: 44,
+    },
     fonts: {
-      xs: 12,
-      sm: 14,
-      md: 16,
-      lg: 20,
-      xl: 24,
+      xs: 14,
+      sm: 16,
+      md: 18,
+      lg: 22,
+      xl: 26,
     },
     spacing: {
       xs: 4,
@@ -24,6 +31,12 @@ export const light: Theme = {
       md: 16,
       lg: 24,
       xl: 32,
+    },
+    rounded: {
+      xs: 4,
+      sm: 8,
+      md: 16,
+      lg: 24,
     },
   },
   colors: {

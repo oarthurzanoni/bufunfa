@@ -25,6 +25,7 @@ export function Hello() {
               color: theme.colors.text[500],
               fontFamily: theme.fonts.medium,
               fontSize: theme.sizes.fonts.xl,
+              paddingTop: 5,
             },
           ]}
           testID="helloMessage"

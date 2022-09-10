@@ -9,6 +9,13 @@ export type Theme = {
     bold: string;
   };
   sizes: {
+    icons: {
+      xs: number;
+      sm: number;
+      md: number;
+      lg: number;
+      xl: number;
+    };
     fonts: {
       xs: number;
       sm: number;
@@ -22,6 +29,12 @@ export type Theme = {
       md: number;
       lg: number;
       xl: number;
+    };
+    rounded: {
+      xs: number;
+      sm: number;
+      md: number;
+      lg: number;
     };
   };
   colors: {
