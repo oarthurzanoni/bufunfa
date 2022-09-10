@@ -21,7 +21,6 @@ const i18n = {
   },
 };
 
-jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
 jest.useFakeTimers();
 jest.mock("../../translations/i18n", () => ({
   i18n,
@@ -57,6 +56,7 @@ describe("<Hello />", () => {
     );
 
     const message = tree.root.findByProps({ testID: "helloMessage" }).props;
-    expect(message.children).toEqual(i18n.t("hello", { name }));
+    const knownUserGreetingMessage = i18n.t("hello", { name });
+    expect(message.children).toEqual(knownUserGreetingMessage);
   });
 });
