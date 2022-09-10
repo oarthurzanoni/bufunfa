@@ -1,5 +1,5 @@
 import * as Localization from "expo-localization";
-import { I18n } from "i18n-js";
+import { FormatNumberOptions, I18n } from "i18n-js";
 import en from "./en.json";
 import ptBR from "./pt-br.json";
 
@@ -8,6 +8,19 @@ export const i18n = new I18n({
   en,
   "pt-BR": ptBR,
 });
+
+export const currencyOptions: Record<string, Partial<FormatNumberOptions>> = {
+  en: {
+    delimiter: ",",
+    separator: ".",
+    unit: "$",
+  },
+  "pt-BR": {
+    delimiter: ".",
+    separator: ",",
+    unit: "R$",
+  },
+};
 
 // Set the locale once at the beginning of your app.
 i18n.locale = Localization.locale;
