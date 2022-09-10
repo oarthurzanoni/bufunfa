@@ -27,6 +27,7 @@ export function Hello() {
               fontSize: theme.sizes.fonts.xl,
             },
           ]}
+          testID="helloMessage"
         >
           {i18n.t(name ? "hello" : "hello_stranger", { name })}
         </Text>
