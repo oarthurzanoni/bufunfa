@@ -19,7 +19,7 @@ interface IconProps {
 export function Icon({ name, height = 24, width = 24, fill }: IconProps) {
   const { theme } = useTheme();
 
-  const SvgIcon = Icons[name] || Icons["wallet"];
+  const SvgIcon = Icons[name] ?? Icons["wallet"];
 
   return (
     <SvgIcon
