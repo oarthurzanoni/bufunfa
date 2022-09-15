@@ -1,12 +1,17 @@
 import { useTheme } from "hooks";
 import React from "react";
 import { SvgProps } from "react-native-svg";
+
+import CardInUseIcon from "../../assets/icons/card-in-use.svg";
+import MoneyBoxIcon from "../../assets/icons/money-box.svg";
 import WalletIcon from "../../assets/icons/wallet.svg";
 
-type IconName = "wallet";
+import type { IconName } from "types";
 
 const Icons: Record<IconName, React.FC<SvgProps>> = {
   wallet: WalletIcon,
+  "card-in-use": CardInUseIcon,
+  "money-box": MoneyBoxIcon,
 };
 
 interface IconProps {
