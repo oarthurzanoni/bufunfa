@@ -1,5 +1,7 @@
 {
   "hello": "Hello, %{name}!",
   "hello_stranger": "Hey, what's your name?",
-  "wallet_balance": "Balance in your wallet"
+  "wallet_balance": "Balance in your wallet",
+  "income": "Incomes",
+  "expense": "Expenses"
 }

@@ -1,4 +1,4 @@
-import { Card, Hello } from "components";
+import { Card, CardInline, Hello } from "components";
 import { useTheme } from "hooks";
 import { Fragment } from "react";
 import { ScrollView, View } from "react-native";
@@ -22,7 +22,16 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
             marginTop: theme.sizes.spacing.xl * 2,
           }}
         >
-          <Card amount={10000} />
+          <Card
+            amount={10000}
+            style={{ marginBottom: theme.sizes.spacing.sm }}
+          />
+          <CardInline
+            type="income"
+            amount={10300}
+            style={{ marginBottom: theme.sizes.spacing.sm }}
+          />
+          <CardInline type="expense" amount={300} />
         </View>
       </ScrollView>
     </Fragment>
