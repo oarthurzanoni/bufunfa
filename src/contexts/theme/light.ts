@@ -46,12 +46,12 @@ export const light: Theme = {
       "400": "#E1FFF3",
     },
     secondary: {
-      "600": "",
+      "600": "#FCEDD2",
       "500": "",
       "400": "#F6EEE0",
     },
     tertiary: {
-      "600": "#FCEDD2",
+      "600": "",
       "500": "#E2D5FE",
       "400": "#E8E3F3",
     },
