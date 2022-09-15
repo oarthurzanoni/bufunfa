@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useTheme, useUser } from "hooks";
 import { NativeModules, Text, TouchableOpacity, View } from "react-native";
 import { i18n } from "translations";
+import { FONT_HEIGHT_PADDING } from "../constants";
 
 export function Hello() {
   const { theme } = useTheme();
@@ -25,7 +26,7 @@ export function Hello() {
               color: theme.colors.text[500],
               fontFamily: theme.fonts.medium,
               fontSize: theme.sizes.fonts.xl,
-              paddingTop: 5,
+              paddingTop: FONT_HEIGHT_PADDING,
             },
           ]}
           testID="helloMessage"
