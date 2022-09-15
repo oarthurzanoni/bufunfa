@@ -11,7 +11,9 @@
       "contexts": ["src/contexts/index"],
       "navigation": ["src/navigation/index"],
       "utils": ["src/utils/index"],
-      "hooks": ["src/hooks/index"]
+      "hooks": ["src/hooks/index"],
+      "consts": ["src/constants"],
+      "types": ["src/types"]
     }
   },
   "exclude": ["node_modules"]

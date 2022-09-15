@@ -14,6 +14,8 @@ module.exports = function (api) {
             navigation: "./src/navigation",
             utils: "./src/utils",
             hooks: "./src/hooks",
+            consts: "./src/constants.ts",
+            types: "./src/types.ts",
           },
           extensions: [".js", ".jsx", ".tsx", ".ts"],
         },
