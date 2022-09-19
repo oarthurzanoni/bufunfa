@@ -13,7 +13,11 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
   return (
     <Fragment>
       <ScrollView
-        style={{ flex: 1, backgroundColor: theme.colors.background[50] }}
+        style={{
+          flex: 1,
+          backgroundColor:
+            theme.colors.background[theme.name === "dark" ? 500 : 50],
+        }}
       >
         <Hello />
         <View

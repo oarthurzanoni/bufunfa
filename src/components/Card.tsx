@@ -8,6 +8,51 @@ import { useMemo } from "react";
 import type { ViewProps } from "react-native";
 import { IconName } from "types";
 
+const CIRCLE = {
+  size: 40,
+  inlineTop: 0,
+  inlineLeft: 5,
+  top: -4,
+  right: 0,
+};
+
+interface CircleProps {
+  type?: CardInlineType;
+}
+
+function Circle({ type }: CircleProps) {
+  const { theme } = useTheme();
+
+  const BG_COLOR = useMemo<Record<CardInlineType & "balance", string>>(
+    () => ({
+      income:
+        theme.name === "dark"
+          ? theme.colors.secondary[500]
+          : theme.colors.secondary[600],
+      expense:
+        theme.name === "dark"
+          ? theme.colors.tertiary[500]
+          : theme.colors.tertiary[500],
+      balance: theme.colors.primary[500],
+    }),
+    [theme.name]
+  );
+
+  return (
+    <View
+      style={{
+        height: CIRCLE.size,
+        width: CIRCLE.size,
+        borderRadius: CIRCLE.size / 2,
+        top: CIRCLE[type ? "inlineTop" : "top"],
+        left: CIRCLE[type ? "inlineLeft" : "right"],
+        backgroundColor: BG_COLOR[(type as keyof typeof BG_COLOR) || "balance"],
+        position: "absolute",
+      }}
+    />
+  );
+}
+
 function Header() {
   const { theme } = useTheme();
 
@@ -19,17 +64,26 @@ function Header() {
           {
             fontFamily: theme.fonts.regular,
             fontSize: theme.sizes.fonts.xs,
-            color: theme.colors["on-color"]["500"],
+            color:
+              theme.name === "dark"
+                ? theme.colors.text[100]
+                : theme.colors["on-color"][500],
           },
         ]}
       >
         {i18n.t("wallet_balance")}
       </Text>
       <View style={[styles.icon]}>
+        <Circle />
         <Icon
           name="wallet"
           height={theme.sizes.icons.xl}
           width={theme.sizes.icons.xl}
+          fill={
+            theme.name === "dark"
+              ? theme.colors["on-color"]["50"]
+              : theme.colors["on-color"]["500"]
+          }
         />
       </View>
     </View>
@@ -64,7 +118,10 @@ function Amount({ amount, style, ...props }: AmountProps) {
           {
             fontFamily: theme.fonts.medium,
             fontSize: theme.sizes.fonts.xl,
-            color: theme.colors["on-color"]["500"],
+            color:
+              theme.name === "dark"
+                ? theme.colors.text[100]
+                : theme.colors["on-color"][500],
           },
         ]}
       >
@@ -94,13 +151,16 @@ export function Card({ amount, style, ...props }: CardProps) {
         {
           borderRadius: theme.sizes.rounded.sm,
           padding: theme.sizes.rounded.md,
-          backgroundColor: theme.colors.primary[500],
+          backgroundColor:
+            theme.name === "dark"
+              ? theme.colors.surface[500]
+              : theme.colors.primary[500],
         },
         style,
       ]}
     >
       <Header />
-      <Amount amount={amount} />
+      <Amount amount={amount} style={{ marginBottom: -FONT_HEIGHT_PADDING }} />
     </View>
   );
 }
@@ -120,7 +180,7 @@ export function CardInline({ amount, type, style, ...props }: CardInlineProps) {
       expense:
         theme.name === "dark"
           ? theme.colors.surface[500]
-          : theme.colors.tertiary[400],
+          : theme.colors.tertiary[500],
       income:
         theme.name === "dark"
           ? theme.colors.surface[500]
@@ -158,11 +218,17 @@ export function CardInline({ amount, type, style, ...props }: CardInlineProps) {
         style,
       ]}
     >
-      <View>
+      <View style={{ position: "relative" }}>
+        <Circle type={type} />
         <Icon
           name={ICON[type]}
           height={theme.sizes.icons.xl}
           width={theme.sizes.icons.xl}
+          fill={
+            theme.name === "dark"
+              ? theme.colors["on-color"]["50"]
+              : theme.colors["on-color"]["500"]
+          }
         />
       </View>
       <View
@@ -179,7 +245,10 @@ export function CardInline({ amount, type, style, ...props }: CardInlineProps) {
               marginBottom: -FONT_HEIGHT_PADDING,
               fontFamily: theme.fonts.regular,
               fontSize: theme.sizes.fonts.xs,
-              color: theme.colors["on-color"]["500"],
+              color:
+                theme.name === "dark"
+                  ? theme.colors.text[100]
+                  : theme.colors["on-color"][500],
             },
           ]}
         >
@@ -217,6 +286,7 @@ const styles = StyleSheet.create({
     paddingTop: FONT_HEIGHT_PADDING,
   },
   icon: {
+    position: "relative",
     alignItems: "center",
     justifyContent: "center",
     height: 36,

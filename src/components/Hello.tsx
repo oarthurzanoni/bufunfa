@@ -23,7 +23,7 @@ export function Hello() {
         <Text
           style={[
             {
-              color: theme.colors.text[500],
+              color: theme.colors.text[theme.name === "dark" ? 50 : 500],
               fontFamily: theme.fonts.medium,
               fontSize: theme.sizes.fonts.xl,
               paddingTop: FONT_HEIGHT_PADDING,

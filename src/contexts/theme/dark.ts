@@ -52,7 +52,7 @@ export const dark: Theme = {
     },
     tertiary: {
       "600": "#FCEDD2",
-      "500": "#E2D5FE",
+      "500": "#746E82",
       "400": "#E8E3F3",
     },
 
