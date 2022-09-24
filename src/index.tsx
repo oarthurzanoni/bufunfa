@@ -1,8 +1,9 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { HeaderBackButton, HeaderTitle } from "components";
 import { StatusBar } from "expo-status-bar";
 import { useTheme, useUser } from "hooks";
-import { HomeScreen, ProfileScreen } from "navigation";
+import { HomeScreen, SettingsScreen } from "navigation";
 import "./translations/i18n";
 
 import type { RootStackParamList } from "navigation";
@@ -21,11 +22,23 @@ export function Main() {
 
   return (
     <>
-      <StatusBar translucent={true} style={theme.statusBar.style} />
+      <StatusBar
+        style={theme.statusBar.style}
+        backgroundColor={
+          theme.colors.background[theme.name === "dark" ? 500 : 50]
+        }
+      />
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
             animation: "fade_from_bottom",
+            headerStyle: {
+              backgroundColor:
+                theme.colors.background[theme.name === "dark" ? 500 : 50],
+            },
+            headerShadowVisible: false,
+            headerTitle: () => null,
+            headerLeft: () => <HeaderBackButton />,
           }}
         >
           <Stack.Screen
@@ -33,7 +46,13 @@ export function Main() {
             name="Home"
             component={HomeScreen}
           />
-          <Stack.Screen name="Profile" component={ProfileScreen} />
+          <Stack.Screen
+            name="Settings"
+            component={SettingsScreen}
+            options={{
+              headerRight: () => <HeaderTitle screen="Settings" />,
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>

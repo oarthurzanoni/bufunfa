@@ -10,7 +10,7 @@ export function Hello() {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+    <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
       <View
         style={[
           {

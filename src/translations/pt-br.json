@@ -3,5 +3,7 @@
   "hello_stranger": "Olá, qual seu nome?",
   "wallet_balance": "Saldo na sua carteira",
   "income": "Entradas",
-  "expense": "Saídas"
+  "expense": "Saídas",
+  "back": "voltar",
+  "settings": "configurações"
 }

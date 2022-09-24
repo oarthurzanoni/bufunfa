@@ -1,3 +1,3 @@
 export { HomeScreen } from "./Home";
-export { ProfileScreen } from "./Profile";
-export type { RootStackParamList, ScreenProps } from "./types";
+export { SettingsScreen } from "./Settings";
+export type { RootStackParamList, ScreenProps, Screens } from "./types";
