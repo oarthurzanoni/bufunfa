@@ -1,6 +1,8 @@
 import { useTheme } from "hooks";
 import { Fragment } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
+import { i18n } from "translations";
+import { InputField } from "../components";
 
 import type { ScreenProps } from "./types";
 
@@ -23,7 +25,9 @@ export function SettingsScreen({ navigation }: SettingsScreenProps) {
             paddingHorizontal: theme.sizes.spacing.md,
             marginTop: theme.sizes.spacing.xl * 2,
           }}
-        ></View>
+        >
+          <InputField placeholder={i18n.t("hello_stranger")} />
+        </View>
       </ScrollView>
     </Fragment>
   );
