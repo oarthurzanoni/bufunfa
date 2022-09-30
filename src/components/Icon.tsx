@@ -5,6 +5,7 @@ import { SvgProps } from "react-native-svg";
 import ArrowBackIcon from "../../assets/icons/arrow-back.svg";
 import CardInUseIcon from "../../assets/icons/card-in-use.svg";
 import MoneyBoxIcon from "../../assets/icons/money-box.svg";
+import UserIcon from "../../assets/icons/user.svg";
 import WalletIcon from "../../assets/icons/wallet.svg";
 
 import type { IconName } from "types";
@@ -14,6 +15,7 @@ const Icons: Record<IconName, React.FC<SvgProps>> = {
   "card-in-use": CardInUseIcon,
   "money-box": MoneyBoxIcon,
   "arrow-back": ArrowBackIcon,
+  user: UserIcon,
 };
 
 interface IconProps extends SvgProps {
