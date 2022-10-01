@@ -1,18 +1,20 @@
 import { useRef } from "react";
 
 import { useTheme } from "hooks";
+import { Controller, useFormContext } from "react-hook-form";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { FONT_HEIGHT_PADDING } from "../../constants";
 import { IconName } from "../../types";
 import { Icon } from "../Icon";
 
-import { FieldError } from "react-hook-form";
+import type { UseControllerProps } from "react-hook-form";
 import type { TextInputProps } from "react-native";
 
 interface InputFieldProps extends TextInputProps {
   icon?: IconName;
   defaultValue?: string;
-  errors: FieldError | undefined;
+  name: string;
+  rules?: UseControllerProps["rules"];
 }
 
 export function InputField({
@@ -24,11 +26,18 @@ export function InputField({
   onBlur,
   onChangeText,
   value,
-  errors,
+  name,
+  rules,
   ...props
 }: InputFieldProps) {
   const { theme } = useTheme();
   const textFieldRef = useRef<TextInput | null>(null);
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+
+  const error = errors[name];
 
   function focusOnInput() {
     textFieldRef.current?.focus();
@@ -40,7 +49,7 @@ export function InputField({
         style={[
           styles.inputContainer,
           {
-            borderColor: errors ? theme.colors.red["500"] : "transparent",
+            borderColor: error ? theme.colors.red["500"] : "transparent",
             borderRadius: theme.sizes.rounded.xs,
             paddingVertical: theme.sizes.spacing.sm,
           },
@@ -53,7 +62,7 @@ export function InputField({
             height={theme.sizes.icons.lg}
             width={theme.sizes.icons.lg}
             fill={
-              errors
+              error
                 ? theme.colors.red["500"]
                 : theme.colors["on-color"][
                     theme.name === "dark" ? "200" : "500"
@@ -64,31 +73,39 @@ export function InputField({
             }}
           />
         ) : null}
-        <TextInput
-          ref={textFieldRef}
-          style={[
-            styles.input,
-            {
-              fontFamily: theme.fonts.regular,
-              fontSize: theme.sizes.fonts.sm,
-              paddingTop: FONT_HEIGHT_PADDING,
-              color: theme.colors.text[theme.name === "dark" ? "50" : "500"],
-            },
-          ]}
-          placeholder={placeholder}
-          onChangeText={onChangeText}
-          onBlur={onBlur}
-          value={value}
-          keyboardType={keyboardType}
-          placeholderTextColor={
-            errors
-              ? theme.colors.red["500"]
-              : theme.colors.text[theme.name === "dark" ? "200" : "100"]
-          }
-          {...props}
+        <Controller
+          control={control}
+          name={name}
+          rules={rules}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              ref={textFieldRef}
+              style={[
+                styles.input,
+                {
+                  fontFamily: theme.fonts.regular,
+                  fontSize: theme.sizes.fonts.sm,
+                  paddingTop: FONT_HEIGHT_PADDING,
+                  color:
+                    theme.colors.text[theme.name === "dark" ? "50" : "500"],
+                },
+              ]}
+              placeholder={placeholder}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              value={value}
+              keyboardType={keyboardType}
+              placeholderTextColor={
+                error
+                  ? theme.colors.red["500"]
+                  : theme.colors.text[theme.name === "dark" ? "200" : "100"]
+              }
+              {...props}
+            />
+          )}
         />
       </View>
-      {errors ? (
+      {error ? (
         <Text
           style={[
             styles.error,
@@ -100,7 +117,7 @@ export function InputField({
             },
           ]}
         >
-          {errors?.message}
+          {error?.message}
         </Text>
       ) : null}
     </View>
