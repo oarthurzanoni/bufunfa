@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { Alert, Button, ScrollView, StyleSheet, View } from "react-native";
 import { i18n } from "translations";
-import { InputField } from "../components";
+import { InputField, Label } from "../components";
 
 import type { SubmitHandler } from "react-hook-form";
 import type { ScreenProps } from "./types";
@@ -36,10 +36,11 @@ export function SettingsScreen({ navigation }: SettingsScreenProps) {
         <View
           style={{
             paddingHorizontal: theme.sizes.spacing.md,
-            marginTop: theme.sizes.spacing.xl * 2,
+            marginTop: theme.sizes.spacing.xl,
           }}
         >
           <FormProvider {...subscribe}>
+            <Label title={i18n.t("profile")} />
             <InputField
               icon="user"
               placeholder={i18n.t("hello_stranger")}
