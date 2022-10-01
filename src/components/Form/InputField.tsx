@@ -94,6 +94,7 @@ export function InputField({
               onChangeText={onChange}
               onBlur={onBlur}
               value={value}
+              defaultValue={defaultValue}
               keyboardType={keyboardType}
               placeholderTextColor={
                 error
