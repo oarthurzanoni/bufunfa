@@ -1,7 +1,5 @@
 # Bufunfa
 
-:warning: A version with improved code and new features is under development.
-
 A React Native money management app.
 
 This app was developed with the purpose of studying. It was developed when I was studying React Native and TypeScript.
