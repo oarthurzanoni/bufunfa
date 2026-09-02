@@ -1,25 +1,41 @@
 # Bufunfa
 
-A React Native money management app.
+A mobile personal finance app built with React Native and TypeScript to record transactions and make day-to-day money tracking easier.
 
-This app was developed with the purpose of studying. It was developed when I was studying React Native and TypeScript.
+## Project goal
 
-## Download
+Explore end-to-end mobile development through a practical finance product, including local persistence, navigation, reusable UI components and a native Android release.
 
-You can download the app in the [releases](https://github.com/Mitacho/bufunfa/releases/tag/v1) section.
+## Features
 
-Or you can download through [this link](https://github.com/Mitacho/bufunfa/releases/download/v1/Bufunfa.apk) as well.
+- Register and organize financial transactions
+- Persist data locally with AsyncStorage
+- Navigate through a multi-screen mobile interface
+- Run on Android, iOS and the web
 
-Analysis of the .apk in VirusTotal: [https://www.virustotal.com/gui/file/a0ad76bc7daf23762f7c2a6b4f651ecbdc6d23aba03d50c4acc97751461b7054/detection](https://www.virustotal.com/gui/file/a0ad76bc7daf23762f7c2a6b4f651ecbdc6d23aba03d50c4acc97751461b7054/detection)
+## Technologies
 
-## Screenshots:
+- **TypeScript**
+- **React Native**
+- **Expo**
+- **React Navigation**
+- **AsyncStorage**
+- **Jest**
 
-![Preview](https://github.com/Mitacho/bufunfa/blob/main/Mockup.svg)
+## What I learned
 
-## Credits
+- Structuring a React Native application beyond a single screen
+- Persisting user data locally and restoring application state
+- Building reusable components and navigation flows
+- Preparing and distributing an Android build
 
-Icons by [Icons8](https://icons8.com.br/)
+## Running locally
 
-## License
+```bash
+npm install
+npm start
+```
 
-Released under the [MIT License](opensource.org/licenses/MIT).
+## About this repository
+
+This repository documents a learning project and the technical decisions explored while building it. It is not presented as a production-ready system.
